@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth/auth.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfigs } from './common/configs/typeorm.config';
 
 @Module({
-  imports: [AuthModule],
+  imports: [TypeOrmModule.forRoot(TypeOrmConfigs), AuthModule],
   controllers: [],
   providers: [],
 })
