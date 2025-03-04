@@ -6,15 +6,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { config } from 'dotenv';
 config();
 
-const { JWT_SECRET, JWT_DEV_EXPIRE } = process.env;
 @Module({
   imports: [
     AuthAdminModule,
     AuthAppModule,
     JwtModule.register({
-      secret: JWT_SECRET,
+      secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: JWT_DEV_EXPIRE,
+        expiresIn: process.env.JWT_DEV_EXPIRE,
       },
     }),
   ],
