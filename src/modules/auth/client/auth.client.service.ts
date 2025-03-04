@@ -84,4 +84,19 @@ export class AuthAppService {
   }
 
   // public methods
+
+  public async createOtp(mobile: string) {
+    await this.CheckRateForCreateOtp(mobile);
+
+    const newOtpCode = await this.generateOtp();
+
+    const newOtp = await this.OtpRepository.create({
+      mobile,
+      code: newOtpCode.hashedOtp,
+    });
+
+    await this.OtpRepository.save(newOtp);
+
+    return newOtpCode.otp;
+  }
 }
