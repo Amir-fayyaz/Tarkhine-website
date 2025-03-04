@@ -12,16 +12,9 @@ import { config } from 'dotenv';
 config();
 
 const { JWT_SECRET, JWT_DEV_EXPIRE } = process.env;
+console.log(JWT_DEV_EXPIRE, JWT_SECRET);
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([OtpEntity, UserEntity]),
-    JwtModule.register({
-      secret: JWT_SECRET,
-      signOptions: {
-        expiresIn: JWT_DEV_EXPIRE,
-      },
-    }),
-  ],
+  imports: [TypeOrmModule.forFeature([OtpEntity, UserEntity])],
   controllers: [AuthAppController],
   providers: [AuthAppService, AuthAppFactory, UserAppService, JwtService],
 })
