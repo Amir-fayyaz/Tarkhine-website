@@ -8,11 +8,6 @@ import { UserAppService } from 'src/modules/users/client/user.client.service';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 
-import { config } from 'dotenv';
-config();
-
-const { JWT_SECRET, JWT_DEV_EXPIRE } = process.env;
-console.log(JWT_DEV_EXPIRE, JWT_SECRET);
 @Module({
   imports: [TypeOrmModule.forFeature([OtpEntity, UserEntity])],
   controllers: [AuthAppController],
