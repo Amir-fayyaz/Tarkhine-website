@@ -29,18 +29,10 @@ export class AuthAdminService {
     if (!isPasswordMatch) throw new BadRequestException('Wrong password');
   }
 
-  private async FindAdmin(email: string) {
-    return await this.Admin_Repository.findOne({
-      where: {
-        email,
-      },
-    });
-  }
-
   // public methods
 
   public async login(data: LoginDto) {
-    const admin = await this.FindAdmin(data.email);
+    const admin = await this.FindAdminByEmail(data.email);
 
     if (!admin) {
       throw new NotFoundException('There is no admin with this email');
@@ -56,5 +48,13 @@ export class AuthAdminService {
         secret: process.env.JWT_SECRET,
       },
     );
+  }
+
+  public async FindAdminByEmail(email: string): Promise<AdminEntity> {
+    return await this.Admin_Repository.findOne({
+      where: {
+        email,
+      },
+    });
   }
 }
