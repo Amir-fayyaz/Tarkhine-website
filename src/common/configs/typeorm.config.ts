@@ -3,6 +3,8 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
 import { OtpEntity } from 'src/modules/auth/entities/otp.entity';
+import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 config();
 
@@ -14,6 +16,12 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
   port: Number(DB_PORT),
   database: DB_DATABASE,
   host: DB_HOST,
-  entities: [OtpEntity, UserEntity, AdminEntity],
+  entities: [
+    OtpEntity,
+    UserEntity,
+    AdminEntity,
+    CategoryEntity,
+    SubCategoryEntity,
+  ],
   synchronize: true,
 };
