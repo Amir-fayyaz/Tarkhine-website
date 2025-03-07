@@ -8,6 +8,7 @@ import { CategoryEntity } from '../../entities/category.entity';
 import { Repository } from 'typeorm';
 import { Pagination } from 'src/common/tools/pagination.tool';
 import { CreateCategoryDto } from '../dto/create-category.dto';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
 
 @Injectable()
 export class CategoryAdminService {
@@ -55,5 +56,31 @@ export class CategoryAdminService {
     const newCategory = this.Category_Repository.create(data);
 
     return await this.Category_Repository.save(newCategory);
+  }
+
+  public async updateCategory(categoryId: number, data: UpdateCategoryDto) {
+    //Check is category title exists before ?
+    const category = await this.Category_Repository.findOne({
+      where: {
+        title: data.title,
+      },
+    });
+
+    if (category && category.id != categoryId) {
+      throw new ConflictException('There is category with this title before');
+    }
+    //logic
+    const updateResult = await this.Category_Repository.update(
+      { id: categoryId },
+      {
+        ...data,
+      },
+    );
+
+    if (updateResult.affected === 0) {
+      throw new NotFoundException('There is no category with this id');
+    }
+
+    return { success: true };
   }
 }
