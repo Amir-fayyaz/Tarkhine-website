@@ -5,8 +5,10 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { CategoryAdminService } from '../services/category.admin.service';
@@ -14,10 +16,12 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
+  ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateCategoryDto } from '../dto/create-category.dto';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
 
 @Controller('api/v1/admin/category')
 @ApiTags('admin-category')
@@ -51,5 +55,18 @@ export class CategoryAdminController {
   @HttpCode(HttpStatus.CREATED)
   async createCategory(@Body() data: CreateCategoryDto) {
     return await this.CategoryService.CreateCategory(data);
+  }
+
+  //PUT
+  @Put(':id')
+  @ApiOperation({ summary: 'For update category title' })
+  @ApiParam({ name: 'id', description: 'Category-id', type: Number })
+  @ApiBody({ type: UpdateCategoryDto, description: 'required fields' })
+  @HttpCode(HttpStatus.OK)
+  async updateCategory(
+    @Param('id', ParseIntPipe) categoryId: number,
+    @Body() data: UpdateCategoryDto,
+  ) {
+    return await this.CategoryService.updateCategory(categoryId, data);
   }
 }
