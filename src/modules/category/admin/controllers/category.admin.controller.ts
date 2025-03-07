@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -68,5 +69,14 @@ export class CategoryAdminController {
     @Body() data: UpdateCategoryDto,
   ) {
     return await this.CategoryService.updateCategory(categoryId, data);
+  }
+
+  //DELETE -
+  @Delete(':id')
+  @ApiOperation({ summary: 'For delete category with id' })
+  @ApiParam({ name: 'id', description: 'category-id', type: Number })
+  @HttpCode(HttpStatus.OK)
+  async deleteCategory(@Param('id', ParseIntPipe) id: number) {
+    return await this.CategoryService.deleteCategory(id);
   }
 }
