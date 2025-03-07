@@ -83,4 +83,15 @@ export class CategoryAdminService {
 
     return { success: true };
   }
+
+  public async deleteCategory(categoryId: number) {
+    const deleteResult = await this.Category_Repository.delete({
+      id: categoryId,
+    });
+
+    if (deleteResult.affected === 0)
+      throw new NotFoundException('There is no category with this id');
+
+    return { success: true };
+  }
 }
