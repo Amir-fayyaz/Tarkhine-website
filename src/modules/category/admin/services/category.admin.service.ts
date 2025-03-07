@@ -94,4 +94,11 @@ export class CategoryAdminService {
 
     return { success: true };
   }
+
+  //exports method
+  public async findCategoryById(id: number) {
+    return await this.Category_Repository.findOne({
+      where: { id },
+    });
+  }
 }
