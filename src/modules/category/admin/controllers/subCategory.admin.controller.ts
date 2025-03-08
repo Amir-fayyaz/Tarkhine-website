@@ -88,6 +88,8 @@ export class SubCategoryAdminController {
 
   //DELETE -
   @Delete(':id')
+  @ApiOperation({ summary: 'For delete subCategory by id' })
+  @ApiParam({ name: 'id', description: 'subCategory-id', type: Number })
   @HttpCode(HttpStatus.OK)
   async deleteSubCategory(@Param('id', ParseIntPipe) subCategory_id: number) {
     return await this.SubCategoryService.deleteSubCategory(subCategory_id);
