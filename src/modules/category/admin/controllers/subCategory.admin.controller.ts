@@ -12,9 +12,18 @@ import {
 } from '@nestjs/common';
 import { SubCategoryAdminService } from '../services/subCategory.admin.service';
 import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
-import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('api/v1/admin/subcategory')
+@ApiTags('admin-subCategory')
+@ApiBearerAuth()
 export class SubCategoryAdminController {
   constructor(private readonly SubCategoryService: SubCategoryAdminService) {}
 
@@ -26,7 +35,8 @@ export class SubCategoryAdminController {
     return await this.SubCategoryService.createSubCategory(data);
   }
 
-  @Get(':id')
+  //GET -
+  @Get('/category/:id')
   @ApiOperation({
     summary: 'For recive subCategory of special category with pagination',
   })
@@ -46,5 +56,14 @@ export class SubCategoryAdminController {
       category_id,
       page,
     );
+  }
+
+  //GET -
+  @Get(':id')
+  @ApiOperation({ summary: 'For recive specail subCategory with id' })
+  @ApiParam({ name: 'id', description: 'subCategory-id', type: Number })
+  @HttpCode(HttpStatus.OK)
+  async getSubCategoryById(@Param('id', ParseIntPipe) subCategory_id: number) {
+    return await this.SubCategoryService.getSubCategoryById(subCategory_id);
   }
 }
