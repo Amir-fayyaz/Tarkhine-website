@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
 import { SubCategoryFactory } from '../../subCategory.factory';
 import { Pagination } from 'src/common/tools/pagination.tool';
+import { UpdateSubCategoryDto } from '../dto/update-SubCategory.dto';
 
 @Injectable()
 export class SubCategoryAdminService {
@@ -105,5 +106,22 @@ export class SubCategoryAdminService {
     return {
       subCategory,
     };
+  }
+
+  public async updateSubCategory(
+    subCategory_id: number,
+    data: UpdateSubCategoryDto,
+  ) {
+    const updateResult = await this.SubCategory_Repository.update(
+      subCategory_id,
+      {
+        ...data,
+      },
+    );
+
+    if (updateResult.affected === 0)
+      throw new NotFoundException('There is no subCategory with this id');
+
+    return { success: true };
   }
 }
