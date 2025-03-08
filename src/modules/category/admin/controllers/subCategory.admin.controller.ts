@@ -11,6 +11,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { SubCategoryAdminService } from '../services/subCategory.admin.service';
 import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
@@ -23,10 +24,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UpdateSubCategoryDto } from '../dto/update-SubCategory.dto';
+import { UserGuard } from 'src/modules/auth/guards/User.guard';
+import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
 
 @Controller('api/v1/admin/subcategory')
 @ApiTags('admin-subCategory')
 @ApiBearerAuth()
+@UseGuards(AdminGuard)
 export class SubCategoryAdminController {
   constructor(private readonly SubCategoryService: SubCategoryAdminService) {}
 

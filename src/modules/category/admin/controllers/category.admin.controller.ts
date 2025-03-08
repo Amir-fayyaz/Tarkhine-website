@@ -11,6 +11,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoryAdminService } from '../services/category.admin.service';
 import {
@@ -23,10 +24,13 @@ import {
 } from '@nestjs/swagger';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
+import { UserGuard } from 'src/modules/auth/guards/User.guard';
+import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
 
 @Controller('api/v1/admin/category')
 @ApiTags('admin-category')
 @ApiBearerAuth()
+@UseGuards(AdminGuard)
 export class CategoryAdminController {
   constructor(private readonly CategoryService: CategoryAdminService) {}
 

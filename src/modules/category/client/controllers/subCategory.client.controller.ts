@@ -6,6 +6,7 @@ import {
   HttpStatus,
   ParseIntPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -14,10 +15,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { SubCategoryAppService } from '../services/subCategory.client.service';
+import { UserGuard } from 'src/modules/auth/guards/User.guard';
 
 @Controller('api/v1/client/subcategory')
 @ApiTags('client-SubCategory')
 @ApiBearerAuth()
+@UseGuards(UserGuard)
 export class SubCategoryAppController {
   constructor(private readonly SubCategoryService: SubCategoryAppService) {}
 
