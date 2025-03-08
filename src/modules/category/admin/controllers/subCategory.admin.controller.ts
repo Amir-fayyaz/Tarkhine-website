@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { SubCategoryAdminService } from '../services/subCategory.admin.service';
@@ -20,6 +21,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { UpdateSubCategoryDto } from '../dto/update-SubCategory.dto';
 
 @Controller('api/v1/admin/subcategory')
 @ApiTags('admin-subCategory')
@@ -65,5 +67,21 @@ export class SubCategoryAdminController {
   @HttpCode(HttpStatus.OK)
   async getSubCategoryById(@Param('id', ParseIntPipe) subCategory_id: number) {
     return await this.SubCategoryService.getSubCategoryById(subCategory_id);
+  }
+
+  //PUT -
+  @Put(':id')
+  @ApiOperation({ summary: 'For update subCategory title' })
+  @ApiParam({ name: 'id', description: 'subCategory-id' })
+  @ApiBody({ type: UpdateSubCategoryDto, description: 'required fields' })
+  @HttpCode(HttpStatus.OK)
+  async updateSubCategory(
+    @Param('id', ParseIntPipe) subCategory_id: number,
+    @Body() data: UpdateSubCategoryDto,
+  ) {
+    return await this.SubCategoryService.updateSubCategory(
+      subCategory_id,
+      data,
+    );
   }
 }
