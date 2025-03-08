@@ -112,16 +112,20 @@ export class SubCategoryAdminService {
     subCategory_id: number,
     data: UpdateSubCategoryDto,
   ) {
-    const updateResult = await this.SubCategory_Repository.update(
-      subCategory_id,
-      {
-        ...data,
-      },
-    );
+    return (
+      await this.SubCategory_Repository.update(
+        { id: subCategory_id },
+        { ...data },
+      )
+    ).affected === 0
+      ? new NotFoundException('There is no subCategory with this id')
+      : { success: true };
+  }
 
-    if (updateResult.affected === 0)
-      throw new NotFoundException('There is no subCategory with this id');
-
-    return { success: true };
+  public async deleteSubCategory(subCategory_id: number) {
+    return (await this.SubCategory_Repository.delete({ id: subCategory_id }))
+      .affected === 0
+      ? new NotFoundException('There is no subCategory with this id')
+      : { success: true };
   }
 }
