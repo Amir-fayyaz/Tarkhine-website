@@ -6,10 +6,15 @@ import { SubCategoryEntity } from '../entities/subCategory.entity';
 import { CategoryEntity } from '../entities/category.entity';
 import { SubCategoryAdminService } from './services/subCategory.admin.service';
 import { CategoryAdminService } from './services/category.admin.service';
+import { SubCategoryFactory } from '../subCategory.factory';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SubCategoryEntity, CategoryEntity])],
   controllers: [SubCategoryAdminController, CategoryAdminController],
-  providers: [SubCategoryAdminService, CategoryAdminService],
+  providers: [
+    SubCategoryAdminService,
+    CategoryAdminService,
+    SubCategoryFactory,
+  ],
 })
 export class CategoryAdminModule {}
