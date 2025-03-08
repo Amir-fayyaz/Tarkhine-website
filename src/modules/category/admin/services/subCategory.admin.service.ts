@@ -1,9 +1,14 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubCategoryEntity } from '../../entities/subCategory.entity';
 import { Repository } from 'typeorm';
 import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
 import { SubCategoryFactory } from '../../subCategory.factory';
+import { Pagination } from 'src/common/tools/pagination.tool';
 
 @Injectable()
 export class SubCategoryAdminService {
@@ -42,5 +47,37 @@ export class SubCategoryAdminService {
     });
 
     return await this.SubCategory_Repository.save(newSubCategory);
+  }
+
+  public async getSubCategoriesForCategory(category_id: number, page: number) {
+    const pagination = Pagination({ page, take: 20 });
+
+    const subCategories = await this.SubCategory_Repository.find({
+      where: {
+        category: {
+          id: category_id,
+        },
+      },
+      order: { createdAt: 'DESC' },
+      relations: ['category'],
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        category: {
+          id: true,
+          title: true,
+          createdAt: true,
+        },
+      },
+      take: pagination.take,
+      skip: pagination.skip,
+    });
+
+    return {
+      page,
+      subCategories,
+      count: subCategories.length,
+    };
   }
 }
