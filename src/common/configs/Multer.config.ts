@@ -9,10 +9,10 @@ export const MulterOption: MulterOptions = {
     destination: (req: Request, file: Express.Multer.File, cb: Function) => {
       const uploadType = req.query.uploadType as string;
 
-      cb(null, `static/uploads/${uploadType}`);
+      cb(null, `storage/uploads/${uploadType}`);
 
       if (!fs.existsSync(`storage/uploads/${uploadType}`)) {
-        fs.mkdirSync(`static/uploads/${uploadType}`, { recursive: true });
+        fs.mkdirSync(`storage/uploads/${uploadType}`, { recursive: true });
       }
     },
 
