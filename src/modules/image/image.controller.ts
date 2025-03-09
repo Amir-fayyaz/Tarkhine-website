@@ -1,6 +1,8 @@
 import {
   BadRequestException,
+  Body,
   Controller,
+  Delete,
   HttpCode,
   HttpStatus,
   Post,
@@ -14,6 +16,7 @@ import { MulterOption } from 'src/common/configs/Multer.config';
 import { ApiBody, ApiConsumes, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UploadFileType } from './enums/UploadFile.enum';
+import { DeleteFileDto } from './dto/deleteFile.dto';
 
 @Controller('api/v1/image')
 export class ImageController {
@@ -47,5 +50,13 @@ export class ImageController {
   ) {
     if (!request.file) throw new BadRequestException('Send file please');
     return await this.ImageService.uploadFile(file);
+  }
+
+  @Delete()
+  @ApiOperation({ summary: 'For delete file with path' })
+  @ApiBody({ type: DeleteFileDto })
+  @HttpCode(HttpStatus.OK)
+  async DeleteFile(@Body() data: DeleteFileDto) {
+    return await this.ImageService.deleteFile(data.fullPath);
   }
 }
