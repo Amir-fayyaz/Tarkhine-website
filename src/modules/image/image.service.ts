@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { StorageService } from 'src/common/abstracts/Storage.abstract';
+import { promises as fs } from 'fs';
 
 @Injectable()
 export class ImageService implements StorageService {
@@ -12,5 +13,13 @@ export class ImageService implements StorageService {
     };
   }
 
-  deleteFile(path: string) {}
+  async deleteFile(path: string) {
+    try {
+      await fs.unlink(path);
+
+      return { success: true };
+    } catch (error) {
+      throw new NotFoundException('There is no file with this path');
+    }
+  }
 }
