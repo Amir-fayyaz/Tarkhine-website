@@ -5,7 +5,12 @@ import { StorageService } from 'src/common/abstracts/Storage.abstract';
 export class ImageService implements StorageService {
   constructor() {}
 
-  uploadFile(file: Express.Multer.File) {}
+  async uploadFile(file: Express.Multer.File) {
+    return {
+      success: true,
+      fileInformation: file,
+    };
+  }
 
   deleteFile(path: string) {}
 }
