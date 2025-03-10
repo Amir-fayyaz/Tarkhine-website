@@ -16,7 +16,7 @@ export class ProductEntity extends Base {
   @Column({ type: 'varchar', nullable: true })
   image_url: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   star: string;
 
   //relations
