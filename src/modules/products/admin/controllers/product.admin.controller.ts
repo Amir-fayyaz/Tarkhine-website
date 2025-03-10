@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -22,6 +23,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { UpdateProductDto } from '../dto/update-product.dto';
 
 @Controller('api/v1/admin/products')
 @ApiTags('admin-products')
@@ -62,5 +64,17 @@ export class ProductAdminController {
   @HttpCode(HttpStatus.OK)
   async getProductById(@Param('id', ParseIntPipe) productId: number) {
     return await this.ProductService.getProductById(productId);
+  }
+
+  @Put(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'For update product information' })
+  @ApiBody({ type: UpdateProductDto, description: 'required fields' })
+  @ApiParam({ name: 'id', description: 'Product-id' })
+  async updateProduct(
+    @Param('id', ParseIntPipe) productId: number,
+    @Body() data: UpdateProductDto,
+  ) {
+    return await this.ProductService.updateProduct(productId, data);
   }
 }
