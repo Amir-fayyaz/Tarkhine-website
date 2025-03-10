@@ -7,6 +7,7 @@ import { ImageModule } from './modules/image/image.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { StaticServeOptions } from './common/configs/StaticServe.config';
+import { ProductModule } from './modules/products/product.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { StaticServeOptions } from './common/configs/StaticServe.config';
     AuthModule,
     CategoryModule,
     ImageModule,
+    ProductModule,
   ],
   controllers: [],
   providers: [],
