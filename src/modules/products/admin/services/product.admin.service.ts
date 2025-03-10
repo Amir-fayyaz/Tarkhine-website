@@ -7,10 +7,10 @@ import { CreateProductDto } from '../dto/create-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from '../../entities/product.entity';
 import { Repository } from 'typeorm';
-import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { ProductAdminFactory } from '../product.admin.factory';
 import { Pagination } from 'src/common/tools/pagination.tool';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { ImageService } from 'src/modules/image/image.service';
 
 @Injectable()
 export class ProductAdminService {
@@ -18,6 +18,7 @@ export class ProductAdminService {
     @InjectRepository(ProductEntity)
     private readonly Product_Repository: Repository<ProductEntity>,
     private readonly ProductFactory: ProductAdminFactory,
+    private readonly ImageService: ImageService,
   ) {}
 
   //private methods
@@ -104,5 +105,22 @@ export class ProductAdminService {
     ).affected === 0
       ? { statusCode: 404, message: 'There is no product with this id' }
       : { succcess: true };
+  }
+
+  public async deleteProduct(productId: number) {
+    const product = await this.Product_Repository.findOne({
+      where: { id: productId },
+    });
+
+    if (!product)
+      throw new NotFoundException('There is no product with this id');
+
+    if (product.image_url) {
+      await this.ImageService.deleteFile(product.image_url);
+    }
+
+    await this.Product_Repository.remove(product);
+
+    return { success: true };
   }
 }
