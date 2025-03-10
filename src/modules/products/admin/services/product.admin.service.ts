@@ -77,4 +77,15 @@ export class ProductAdminService {
       count: products.length,
     };
   }
+
+  public async getProductById(id: number) {
+    const product = await this.Product_Repository.findOne({
+      where: { id },
+      relations: ['category'],
+    });
+
+    return product
+      ? product
+      : { statusCode: 404, message: 'There is no product with this id' };
+  }
 }
