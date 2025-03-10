@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -66,6 +67,7 @@ export class ProductAdminController {
     return await this.ProductService.getProductById(productId);
   }
 
+  //PUT -
   @Put(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'For update product information' })
@@ -76,5 +78,14 @@ export class ProductAdminController {
     @Body() data: UpdateProductDto,
   ) {
     return await this.ProductService.updateProduct(productId, data);
+  }
+
+  //DELETE -
+  @Delete(':id')
+  @ApiOperation({ summary: 'For delete product' })
+  @ApiParam({ name: 'id', description: 'Product-id' })
+  @HttpCode(HttpStatus.OK)
+  async deleteProduct(@Param('id', ParseIntPipe) produdctId: number) {
+    return await this.ProductService.deleteProduct(produdctId);
   }
 }
