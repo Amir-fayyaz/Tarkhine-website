@@ -11,6 +11,8 @@ import { ProductAdminFactory } from '../product.admin.factory';
 import { Pagination } from 'src/common/tools/pagination.tool';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { ImageService } from 'src/modules/image/image.service';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
 
 @Injectable()
 export class ProductAdminService {
@@ -120,6 +122,26 @@ export class ProductAdminService {
     }
 
     await this.Product_Repository.remove(product);
+
+    return { success: true };
+  }
+
+  public async addProductImage(path: string, productId: number) {
+    const product = await this.Product_Repository.findOne({
+      where: { id: productId },
+    });
+
+    if (!product)
+      throw new NotFoundException('There is no product with this id');
+
+    const filePath = resolve(path);
+
+    if (!existsSync(filePath))
+      throw new NotFoundException('There is no image with this url');
+
+    product.image_url = path;
+
+    await this.Product_Repository.save(product);
 
     return { success: true };
   }
