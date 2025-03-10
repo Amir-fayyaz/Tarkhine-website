@@ -10,6 +10,7 @@ import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
 import { ProductAdminFactory } from './product.admin.factory';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { ImageService } from 'src/modules/image/image.service';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
     AuthAdminService,
     ProductAdminFactory,
     CategoryAdminService,
+    ImageService,
   ],
 })
 export class ProductAdminModule {}
