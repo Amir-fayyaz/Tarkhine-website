@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -17,6 +18,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
+  ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
@@ -30,7 +32,7 @@ export class ProductAdminController {
 
   //POST -
   @Post()
-  @ApiOperation({ description: 'For create new product' })
+  @ApiOperation({ summary: 'For create new product' })
   @ApiBody({ type: CreateProductDto, description: 'required fields' })
   @HttpCode(HttpStatus.CREATED)
   async createProduct(@Body() data: CreateProductDto) {
@@ -41,10 +43,24 @@ export class ProductAdminController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'For get all products with pagination' })
-  @ApiQuery({ name: 'page', default: 1, required: false })
+  @ApiQuery({
+    name: 'page',
+    default: 1,
+    required: false,
+    description: 'For pagination',
+  })
   async getProducts(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
     return await this.ProductService.getProducts(page);
+  }
+
+  //GET -
+  @Get(':id')
+  @ApiOperation({ summary: 'For get specail product with id' })
+  @ApiParam({ name: 'id', description: 'product-id' })
+  @HttpCode(HttpStatus.OK)
+  async getProductById(@Param('id', ParseIntPipe) productId: number) {
+    return await this.ProductService.getProductById(productId);
   }
 }
