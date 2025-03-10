@@ -9,6 +9,7 @@ import { ProductEntity } from '../../entities/product.entity';
 import { Repository } from 'typeorm';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { ProductAdminFactory } from '../product.admin.factory';
+import { Pagination } from 'src/common/tools/pagination.tool';
 
 @Injectable()
 export class ProductAdminService {
@@ -45,5 +46,35 @@ export class ProductAdminService {
     const newProduct = this.Product_Repository.create({ ...data, category });
 
     return await this.Product_Repository.save(newProduct);
+  }
+
+  public async getProducts(page: number) {
+    const pagiantion = Pagination({ page, take: 20 });
+
+    const products = await this.Product_Repository.find({
+      order: { createdAt: 'DESC' },
+      relations: ['category'],
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        image_url: true,
+        star: true,
+        createdAt: true,
+        category: {
+          title: true,
+          id: true,
+          createdAt: true,
+        },
+      },
+      take: pagiantion.take,
+      skip: pagiantion.skip,
+    });
+
+    return {
+      page,
+      products,
+      count: products.length,
+    };
   }
 }
