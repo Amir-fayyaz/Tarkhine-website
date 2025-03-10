@@ -16,4 +16,9 @@ export class CreateProductDto {
   @IsNotEmpty()
   @ApiProperty({ example: 250_000 })
   price: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ description: 'product-category' })
+  category_id: number;
 }

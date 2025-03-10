@@ -4,7 +4,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('product')
 export class ProductEntity extends Base {
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: false, unique: true })
   name: string;
 
   @Column({ type: 'varchar', nullable: false })
@@ -22,5 +22,5 @@ export class ProductEntity extends Base {
   //relations
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ name: 'category' })
-  category: CategoryEntity[];
+  category: CategoryEntity;
 }
