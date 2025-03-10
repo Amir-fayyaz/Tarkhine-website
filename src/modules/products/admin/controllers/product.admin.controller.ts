@@ -25,6 +25,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { AddProductImageDto } from '../dto/add-productImage.dto';
 
 @Controller('api/v1/admin/products')
 @ApiTags('admin-products')
@@ -87,5 +88,18 @@ export class ProductAdminController {
   @HttpCode(HttpStatus.OK)
   async deleteProduct(@Param('id', ParseIntPipe) produdctId: number) {
     return await this.ProductService.deleteProduct(produdctId);
+  }
+
+  //POST -
+  @Post(':id')
+  @ApiOperation({ summary: 'For upload image for product' })
+  @ApiBody({ type: AddProductImageDto, description: 'required fields' })
+  @ApiParam({ name: 'id', description: 'product-id' })
+  @HttpCode(HttpStatus.OK)
+  async addProductImage(
+    @Body() data: AddProductImageDto,
+    @Param('id', ParseIntPipe) productId: number,
+  ) {
+    return await this.ProductService.addProductImage(data.path, productId);
   }
 }
