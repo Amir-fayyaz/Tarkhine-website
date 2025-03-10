@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { ProductAdminFactory } from '../product.admin.factory';
 import { Pagination } from 'src/common/tools/pagination.tool';
+import { UpdateProductDto } from '../dto/update-product.dto';
 
 @Injectable()
 export class ProductAdminService {
@@ -20,14 +21,12 @@ export class ProductAdminService {
   ) {}
 
   //private methods
-
-  //public methods
-  public async createProduct(data: CreateProductDto) {
+  private async isUniqiueProductInfo(name: string, category_id: number) {
     const product = await this.Product_Repository.findOne({
       where: {
-        name: data.name,
+        name,
         category: {
-          id: data.category_id,
+          id: category_id,
         },
       },
     });
@@ -35,6 +34,11 @@ export class ProductAdminService {
     if (product) {
       throw new ConflictException('There is another product with this name');
     }
+  }
+
+  //public methods
+  public async createProduct(data: CreateProductDto) {
+    await this.isUniqiueProductInfo(data.name, data.category_id);
 
     const category = await this.ProductFactory.FindCateogryById(
       data.category_id,
@@ -87,5 +91,18 @@ export class ProductAdminService {
     return product
       ? product
       : { statusCode: 404, message: 'There is no product with this id' };
+  }
+
+  public async updateProduct(productId: number, data: UpdateProductDto) {
+    return (
+      await this.Product_Repository.update(
+        { id: productId },
+        {
+          ...data,
+        },
+      )
+    ).affected === 0
+      ? { statusCode: 404, message: 'There is no product with this id' }
+      : { succcess: true };
   }
 }
