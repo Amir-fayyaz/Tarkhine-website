@@ -91,9 +91,12 @@ export class ProductAdminService {
       relations: ['category'],
     });
 
-    return product
-      ? product
-      : { statusCode: 404, message: 'There is no product with this id' };
+    if (!product)
+      throw new NotFoundException('There is no product with this id');
+
+    return {
+      product,
+    };
   }
 
   public async updateProduct(productId: number, data: UpdateProductDto) {
