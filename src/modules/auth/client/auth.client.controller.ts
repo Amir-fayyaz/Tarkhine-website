@@ -20,8 +20,8 @@ export class AuthAppController {
     private readonly JwtService: JwtService,
   ) {}
 
-  //GET -
-  @Get('getOtp')
+  //POST -
+  @Post('getOtp')
   @ApiOperation({ summary: 'For get otp to login/register' })
   @ApiBody({ type: SignUpDto, description: 'required fields' })
   @HttpCode(HttpStatus.OK)
