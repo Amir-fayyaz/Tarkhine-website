@@ -1,6 +1,7 @@
 import { Base } from 'src/common/abstracts/base.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { LikeEntity } from './like.entity';
 
 @Entity('product')
 export class ProductEntity extends Base {
@@ -23,4 +24,7 @@ export class ProductEntity extends Base {
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ name: 'category' })
   category: CategoryEntity;
+
+  @OneToMany(() => LikeEntity, (like) => like.product)
+  likes: LikeEntity[];
 }
