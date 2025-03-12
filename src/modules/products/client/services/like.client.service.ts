@@ -48,4 +48,12 @@ export class LikeAppService {
       return { statusCode: 201, message: 'Product liked !' };
     }
   }
+
+  public async getLikedProductsForUser(user: UserEntity) {
+    return await this.Like_Repository.find({
+      where: { user: { id: user.id } },
+      order: { createdAt: 'DESC' },
+      relations: ['product'],
+    });
+  }
 }
