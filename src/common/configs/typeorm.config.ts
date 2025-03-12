@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
 import { OtpEntity } from 'src/modules/auth/entities/otp.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
 import { ProductEntity } from 'src/modules/products/entities/product.entity';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
@@ -24,6 +25,7 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     CategoryEntity,
     ProductEntity,
     LikeEntity,
+    SubCategoryEntity,
   ],
   synchronize: true,
 };

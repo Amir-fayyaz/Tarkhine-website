@@ -9,12 +9,13 @@ import {
   OneToOne,
 } from 'typeorm';
 import { LikeEntity } from './like.entity';
+import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 
 //!
 @Entity('product')
 export class ProductEntity extends Base {
-  // @Column({ type: 'varchar', nullable: false, unique: true })
-  // name: string;
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  name: string;
 
   @Column({ type: 'varchar', nullable: false })
   description: string;
@@ -32,6 +33,10 @@ export class ProductEntity extends Base {
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ name: 'category' })
   category: CategoryEntity;
+
+  @ManyToOne(() => SubCategoryEntity, (subcategory) => subcategory.products)
+  @JoinColumn({ name: 'subCategory' })
+  subCategory: SubCategoryEntity;
 
   @OneToMany(() => LikeEntity, (like) => like.product)
   likes: LikeEntity[];
