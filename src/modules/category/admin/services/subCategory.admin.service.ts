@@ -77,6 +77,8 @@ export class SubCategoryAdminService {
           title: true,
         },
       },
+      skip: pagination.skip,
+      take: pagination.take,
     });
 
     return {
