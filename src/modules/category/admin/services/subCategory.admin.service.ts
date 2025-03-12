@@ -47,4 +47,16 @@ export class SubCategoryAdminService {
 
     return await this.SubCategory_Repository.save(newSubCategory);
   }
+
+  public async getSubCategoryById(subCategory_id: number) {
+    const subCategory = await this.SubCategory_Repository.findOne({
+      where: { id: subCategory_id },
+      relations: ['category'],
+    });
+
+    if (!subCategory)
+      throw new NotFoundException('There is no subCategory with this id');
+
+    return { subCategory };
+  }
 }
