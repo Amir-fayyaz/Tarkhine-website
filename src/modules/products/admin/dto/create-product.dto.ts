@@ -21,4 +21,9 @@ export class CreateProductDto {
   @IsNotEmpty()
   @ApiProperty({ description: 'product-category' })
   category_id: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ description: 'product-subCategory' })
+  subCategory_id: number;
 }
