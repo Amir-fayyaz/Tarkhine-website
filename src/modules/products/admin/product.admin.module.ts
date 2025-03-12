@@ -22,7 +22,6 @@ import { ImageService } from 'src/modules/image/image.service';
     JwtService,
     AuthAdminFactory,
     AuthAdminService,
-    ProductAdminFactory,
     CategoryAdminService,
     ImageService,
   ],
