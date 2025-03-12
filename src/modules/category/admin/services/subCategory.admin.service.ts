@@ -8,6 +8,7 @@ import { SubCategoryEntity } from '../../entities/subCategory.entity';
 import { Repository } from 'typeorm';
 import { CategoryAdminService } from './category.admin.service';
 import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
+import { Pagination } from 'src/common/tools/pagination.tool';
 
 @Injectable()
 export class SubCategoryAdminService {
@@ -58,5 +59,29 @@ export class SubCategoryAdminService {
       throw new NotFoundException('There is no subCategory with this id');
 
     return { subCategory };
+  }
+
+  public async getSubCategories(page: number) {
+    const pagination = Pagination({ page, take: 20 });
+
+    const subCategories = await this.SubCategory_Repository.find({
+      order: { createdAt: 'DESC' },
+      relations: ['category'],
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        category: {
+          id: true,
+          title: true,
+        },
+      },
+    });
+
+    return {
+      page,
+      subCategories,
+      count: subCategories.length,
+    };
   }
 }
