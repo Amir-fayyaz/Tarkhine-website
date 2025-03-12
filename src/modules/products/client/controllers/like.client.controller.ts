@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -34,5 +35,12 @@ export class LikeAppController {
     @Param('id', ParseIntPipe) product_id: number,
   ) {
     return await this.LikeService.likeOrDisLikeProduct(product_id, user);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'For get products of user like it' })
+  @HttpCode(HttpStatus.OK)
+  async getLikedProducts(@User() user: UserEntity) {
+    return await this.LikeService.getLikedProductsForUser(user);
   }
 }
