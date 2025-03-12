@@ -11,10 +11,17 @@ import { ProductAdminFactory } from './product.admin.factory';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { ImageService } from 'src/modules/image/image.service';
+import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
+import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductEntity, AdminEntity, CategoryEntity]),
+    TypeOrmModule.forFeature([
+      ProductEntity,
+      AdminEntity,
+      CategoryEntity,
+      SubCategoryEntity,
+    ]),
   ],
   controllers: [ProductAdminController],
   providers: [
@@ -23,6 +30,7 @@ import { ImageService } from 'src/modules/image/image.service';
     AuthAdminFactory,
     AuthAdminService,
     CategoryAdminService,
+    SubCategoryAdminService,
     ImageService,
   ],
 })
