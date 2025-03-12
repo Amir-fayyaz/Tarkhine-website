@@ -7,7 +7,6 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthAdminFactory } from 'src/modules/auth/admin/auth.admin.factory';
 import { AuthAdminService } from 'src/modules/auth/admin/auth.admin.service';
 import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
-import { ProductAdminFactory } from './product.admin.factory';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { ImageService } from 'src/modules/image/image.service';
