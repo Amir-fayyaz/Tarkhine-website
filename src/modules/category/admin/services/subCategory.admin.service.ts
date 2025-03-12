@@ -99,4 +99,11 @@ export class SubCategoryAdminService {
       ? { statusCode: 404, message: 'No subCategory with this id' }
       : { success: true };
   }
+
+  public async deleteSubCategory(subCategory_id: number) {
+    return (await this.SubCategory_Repository.delete({ id: subCategory_id }))
+      .affected === 0
+      ? { statusCode: 404, message: 'There is no subCategory with this id' }
+      : { success: true };
+  }
 }
