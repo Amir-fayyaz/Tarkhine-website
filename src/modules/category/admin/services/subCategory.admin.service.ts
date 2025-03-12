@@ -1,0 +1,50 @@
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SubCategoryEntity } from '../../entities/subCategory.entity';
+import { Repository } from 'typeorm';
+import { CategoryAdminService } from './category.admin.service';
+import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
+
+@Injectable()
+export class SubCategoryAdminService {
+  constructor(
+    @InjectRepository(SubCategoryEntity)
+    private readonly SubCategory_Repository: Repository<SubCategoryEntity>,
+    private readonly CategoryService: CategoryAdminService,
+  ) {}
+
+  //private methods
+
+  //public methods
+  public async createSubCategory(data: CreateSubCategoryDto) {
+    const category = await this.CategoryService.findCategoryById(
+      data.category_id,
+    );
+
+    if (!category)
+      throw new NotFoundException('There is no category with this id');
+
+    const OldSubCategory = await this.SubCategory_Repository.findOne({
+      where: {
+        title: data.title,
+        category: {
+          id: data.category_id,
+        },
+      },
+    });
+
+    if (OldSubCategory)
+      throw new ConflictException('this subCategory existed before');
+
+    const newSubCategory = await this.SubCategory_Repository.create({
+      title: data.title,
+      category,
+    });
+
+    return await this.SubCategory_Repository.save(newSubCategory);
+  }
+}
