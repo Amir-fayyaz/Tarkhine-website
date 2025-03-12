@@ -1,5 +1,6 @@
 import { Base } from 'src/common/abstracts/base.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
+import { StarEntity } from 'src/modules/products/entities/stars.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('user')
@@ -28,4 +29,7 @@ export class UserEntity extends Base {
   //relations
   @OneToMany(() => LikeEntity, (like) => like.user)
   likes: LikeEntity[];
+
+  @OneToMany(() => StarEntity, (star) => star.user)
+  stars: StarEntity[];
 }

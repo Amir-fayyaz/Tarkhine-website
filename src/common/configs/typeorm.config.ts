@@ -7,6 +7,7 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
 import { ProductEntity } from 'src/modules/products/entities/product.entity';
+import { StarEntity } from 'src/modules/products/entities/stars.entity';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 config();
 
@@ -26,6 +27,7 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     ProductEntity,
     LikeEntity,
     SubCategoryEntity,
+    StarEntity,
   ],
   synchronize: true,
 };

@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { LikeEntity } from './like.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
+import { StarEntity } from './stars.entity';
 
 //!
 @Entity('product')
@@ -40,4 +41,7 @@ export class ProductEntity extends Base {
 
   @OneToMany(() => LikeEntity, (like) => like.product)
   likes: LikeEntity[];
+
+  @OneToMany(() => StarEntity, (star) => star.product)
+  stars: StarEntity[];
 }
