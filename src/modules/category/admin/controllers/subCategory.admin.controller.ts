@@ -1,12 +1,14 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Get,
   HttpCode,
   HttpStatus,
   Param,
   ParseIntPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { SubCategoryAdminService } from '../services/subCategory.admin.service';
@@ -16,6 +18,7 @@ import {
   ApiBody,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
@@ -43,5 +46,22 @@ export class SubCategoryAdminController {
   @HttpCode(HttpStatus.OK)
   async getSubCategoryById(@Param('id', ParseIntPipe) subCategory_id: number) {
     return await this.SubCategoryService.getSubCategoryById(subCategory_id);
+  }
+
+  //GET -
+  @Get()
+  @ApiOperation({ summary: 'For get subCategories with pagination' })
+  @ApiQuery({
+    name: 'page',
+    description: 'For pagination',
+    type: Number,
+    default: 1,
+    required: false,
+  })
+  @HttpCode(HttpStatus.OK)
+  async getSubCategories(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ) {
+    return await this.SubCategoryService.getSubCategories(page);
   }
 }
