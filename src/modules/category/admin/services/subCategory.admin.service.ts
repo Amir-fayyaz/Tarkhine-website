@@ -62,10 +62,11 @@ export class SubCategoryAdminService {
     return { subCategory };
   }
 
-  public async getSubCategories(page: number) {
+  public async getSubCategoriesByCategory(page: number, category_id: number) {
     const pagination = Pagination({ page, take: 20 });
 
     const subCategories = await this.SubCategory_Repository.find({
+      where: { category: { id: category_id } },
       order: { createdAt: 'DESC' },
       relations: ['category'],
       select: {

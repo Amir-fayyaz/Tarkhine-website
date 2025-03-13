@@ -52,7 +52,7 @@ export class SubCategoryAdminController {
   }
 
   //GET -
-  @Get()
+  @Get('category/:id')
   @ApiOperation({ summary: 'For get subCategories with pagination' })
   @ApiQuery({
     name: 'page',
@@ -61,11 +61,16 @@ export class SubCategoryAdminController {
     default: 1,
     required: false,
   })
+  @ApiParam({ name: 'id', description: 'category-id for filter subCategories' })
   @HttpCode(HttpStatus.OK)
   async getSubCategories(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Param('id', ParseIntPipe) category_id: number,
   ) {
-    return await this.SubCategoryService.getSubCategories(page);
+    return await this.SubCategoryService.getSubCategoriesByCategory(
+      page,
+      category_id,
+    );
   }
 
   //PUT
