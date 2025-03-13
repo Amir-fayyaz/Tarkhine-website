@@ -44,7 +44,7 @@ export class ProductAdminController {
   }
 
   //GET -
-  @Get()
+  @Get('subCategory/:id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'For get all products with pagination' })
   @ApiQuery({
@@ -53,10 +53,12 @@ export class ProductAdminController {
     required: false,
     description: 'For pagination',
   })
+  @ApiParam({ name: 'id', description: 'subCategory-id for filter products' })
   async getProducts(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Param('id', ParseIntPipe) subCategory_id: number,
   ) {
-    return await this.ProductService.getProducts(page);
+    return await this.ProductService.getProducts(page, subCategory_id);
   }
 
   //GET -

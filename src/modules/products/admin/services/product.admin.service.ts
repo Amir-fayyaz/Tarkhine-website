@@ -59,9 +59,10 @@ export class ProductAdminService {
     return await this.Product_Repository.save(newProduct);
   }
 
-  public async getProducts(page: number) {
+  public async getProducts(page: number, SubCategory_id: number) {
     const pagiantion = Pagination({ page, take: 20 });
     const products = await this.Product_Repository.find({
+      where: { subCategory: { id: SubCategory_id } },
       order: { createdAt: 'DESC' },
       relations: ['category'],
       select: {
