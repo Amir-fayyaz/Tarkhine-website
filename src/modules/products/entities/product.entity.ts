@@ -27,8 +27,8 @@ export class ProductEntity extends Base {
   @Column({ type: 'varchar', nullable: true })
   image_url: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  star: string;
+  @Column({ type: 'tinyint', nullable: true })
+  star: number;
 
   //relations
   @ManyToOne(() => CategoryEntity, (category) => category.products)
