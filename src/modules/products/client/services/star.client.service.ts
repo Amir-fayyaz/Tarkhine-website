@@ -17,7 +17,7 @@ export class StarAppService {
   //private methods
 
   //public methods
-  public async createOrUpdateStar(data: CreateStarDto, user: UserEntity) {
+  public async createOrUpdateStarRate(data: CreateStarDto, user: UserEntity) {
     const star = await this.Star_Repository.findOne({
       where: {
         product: {
@@ -50,7 +50,7 @@ export class StarAppService {
     }
   }
 
-  public async getUserStars(user: UserEntity) {
+  public async getUserStarsRate(user: UserEntity) {
     const stars = await this.Star_Repository.find({
       where: { user: { id: user.id } },
       order: { createdAt: 'DESC' },
@@ -60,5 +60,16 @@ export class StarAppService {
     return {
       stars,
     };
+  }
+
+  public async deleteStarRate(product_id: number, user_id: number) {
+    return (
+      await this.Star_Repository.delete({
+        user: { id: user_id },
+        product: { id: product_id },
+      })
+    ).affected === 0
+      ? { statusCode: 404, message: 'You did not rated on this product' }
+      : { statusCode: 200, message: 'Rate deleted successfully' };
   }
 }
