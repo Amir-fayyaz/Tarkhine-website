@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -27,5 +28,12 @@ export class StarAppController {
   @HttpCode(HttpStatus.OK)
   async createStar(@Body() data: CreateStarDto, @User() user: UserEntity) {
     return await this.starService.createOrUpdateStar(data, user);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'For fetch all stars that user  rated on products' })
+  @HttpCode(HttpStatus.OK)
+  async getUserStars(@User() user: UserEntity) {
+    return await this.starService.getUserStars(user);
   }
 }
