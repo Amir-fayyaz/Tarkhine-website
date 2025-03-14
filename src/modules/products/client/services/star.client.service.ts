@@ -49,4 +49,16 @@ export class StarAppService {
       return { star: newStar };
     }
   }
+
+  public async getUserStars(user: UserEntity) {
+    const stars = await this.Star_Repository.find({
+      where: { user: { id: user.id } },
+      order: { createdAt: 'DESC' },
+      relations: ['product'],
+    });
+
+    return {
+      stars,
+    };
+  }
 }
