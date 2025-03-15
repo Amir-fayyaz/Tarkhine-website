@@ -32,6 +32,11 @@ export class StarAppService {
     const product = await this.ProductService.getProductById(data.product_id);
 
     if (star) {
+      await this.ProductService.IncreaseTotalStar(
+        data.product_id,
+        data.star - star.star,
+        false,
+      );
       star.star = data.star;
 
       await this.Star_Repository.save(star);
@@ -44,6 +49,11 @@ export class StarAppService {
         product: product.product,
       });
 
+      await this.ProductService.IncreaseTotalStar(
+        data.product_id,
+        data.star,
+        true,
+      );
       await this.Star_Repository.save(newStar);
 
       return { star: newStar };
