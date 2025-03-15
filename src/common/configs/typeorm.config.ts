@@ -5,9 +5,11 @@ import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
 import { OtpEntity } from 'src/modules/auth/entities/otp.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
+import { GlobalCouponEntity } from 'src/modules/products/entities/global_coupon.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
 import { ProductEntity } from 'src/modules/products/entities/product.entity';
 import { StarEntity } from 'src/modules/products/entities/stars.entity';
+import { UserCouponEntity } from 'src/modules/products/entities/user_coupon.entity';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 config();
 
@@ -28,6 +30,8 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     LikeEntity,
     SubCategoryEntity,
     StarEntity,
+    GlobalCouponEntity,
+    UserCouponEntity,
   ],
   synchronize: true,
 };
