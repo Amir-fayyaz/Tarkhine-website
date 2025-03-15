@@ -28,7 +28,10 @@ export class ProductEntity extends Base {
   image_url: string;
 
   @Column({ type: 'tinyint', nullable: true })
-  star: number;
+  TotalStars: number;
+
+  @Column({ type: 'int', nullable: false, default: 0 })
+  CountStar: number;
 
   //relations
   @ManyToOne(() => CategoryEntity, (category) => category.products)

@@ -70,7 +70,8 @@ export class ProductAdminService {
         name: true,
         description: true,
         image_url: true,
-        star: true,
+        TotalStars: true,
+        CountStar: true,
         price: true,
         createdAt: true,
         category: {
