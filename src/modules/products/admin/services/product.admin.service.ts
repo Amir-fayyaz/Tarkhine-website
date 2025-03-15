@@ -158,4 +158,26 @@ export class ProductAdminService {
 
     return { success: true };
   }
+
+  //For use in Star.service.ts
+  public async IncreaseTotalStar(
+    product_id: number,
+    star: number,
+    isNew: Boolean,
+  ) {
+    const { product } = await this.getProductById(product_id);
+
+    if (isNew) {
+      product.TotalStars += star;
+      product.CountStar += 1;
+
+      await this.Product_Repository.save(product);
+
+      return { success: true };
+    } else {
+      product.TotalStars += star;
+      await this.Product_Repository.save(product);
+      return { succcess: true };
+    }
+  }
 }
