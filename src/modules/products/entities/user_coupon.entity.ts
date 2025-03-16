@@ -16,4 +16,7 @@ export class UserCouponEntity extends Base {
 
   @Column({ type: 'timestamp', nullable: false })
   expiredAt: Date;
+
+  @Column({ type: 'varchar', nullable: false })
+  couponCode: string;
 }
