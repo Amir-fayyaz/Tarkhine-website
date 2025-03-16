@@ -1,11 +1,14 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
   ParseIntPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { UserCouponAdminService } from '../services/user-coupon.admin.service';
@@ -15,6 +18,7 @@ import {
   ApiBody,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
@@ -26,6 +30,7 @@ import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
 export class UserCouponAdminController {
   constructor(private readonly CouponService: UserCouponAdminService) {}
 
+  //POST -
   @Post(':id')
   @ApiOperation({ summary: 'For create discount-coupon for special user' })
   @ApiBody({
@@ -42,5 +47,22 @@ export class UserCouponAdminController {
     @Param('id', ParseIntPipe) user_id: number,
   ) {
     return await this.CouponService.createCouponForUser(data, user_id);
+  }
+
+  //GET -
+  @Get()
+  @ApiOperation({ summary: 'For getCoupons' })
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    default: 1,
+    required: false,
+    description: 'For pagination',
+  })
+  @HttpCode(HttpStatus.OK)
+  async getCoupons(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ) {
+    return await this.CouponService.getAllUserCoupons(page);
   }
 }
