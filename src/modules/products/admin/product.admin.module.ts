@@ -12,6 +12,11 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { ImageService } from 'src/modules/image/image.service';
 import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
+import { UserCouponAdminController } from './controllers/user-coupon.admin.controller';
+import { UserCouponAdminService } from './services/user-coupon.admin.service';
+import { UserCouponEntity } from '../entities/user_coupon.entity';
+import { UserAppService } from 'src/modules/users/client/user.client.service';
+import { UserEntity } from 'src/modules/users/entities/user.entity';
 
 @Module({
   imports: [
@@ -20,9 +25,11 @@ import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.ent
       AdminEntity,
       CategoryEntity,
       SubCategoryEntity,
+      UserCouponEntity,
+      UserEntity,
     ]),
   ],
-  controllers: [ProductAdminController],
+  controllers: [ProductAdminController, UserCouponAdminController],
   providers: [
     ProductAdminService,
     JwtService,
@@ -31,6 +38,8 @@ import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.ent
     CategoryAdminService,
     SubCategoryAdminService,
     ImageService,
+    UserCouponAdminService,
+    UserAppService,
   ],
 })
 export class ProductAdminModule {}
