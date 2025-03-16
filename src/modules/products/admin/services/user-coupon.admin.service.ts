@@ -4,6 +4,7 @@ import { UserCouponEntity } from '../../entities/user_coupon.entity';
 import { Repository } from 'typeorm';
 import { CreateUserCouponDto } from '../dto/create-userCoupon.dto';
 import { UserAppService } from 'src/modules/users/client/user.client.service';
+import { Pagination } from 'src/common/tools/pagination.tool';
 
 @Injectable()
 export class UserCouponAdminService {
@@ -52,5 +53,34 @@ export class UserCouponAdminService {
     });
 
     return await this.UserCoupon_Repository.save(newCoupon);
+  }
+
+  public async getAllUserCoupons(page: number) {
+    const pagination = Pagination({ page, take: 20 });
+
+    const coupons = await this.UserCoupon_Repository.find({
+      order: { createdAt: 'DESC' },
+      relations: ['user'],
+      select: {
+        id: true,
+        disCount: true,
+        product_range: true,
+        couponCode: true,
+        expiredAt: true,
+        createdAt: true,
+        user: {
+          id: true,
+          mobile: true,
+        },
+      },
+      skip: pagination.skip,
+      take: pagination.take,
+    });
+
+    return {
+      page,
+      coupons,
+      count: coupons.length,
+    };
   }
 }
