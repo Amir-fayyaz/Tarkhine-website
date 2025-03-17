@@ -8,6 +8,7 @@ import { GlobalCouponEntity } from '../../entities/global_coupon.entity';
 import { Repository } from 'typeorm';
 import { ProductAdminService } from './product.admin.service';
 import { CreateGlobalCouponDto } from '../dto/global-coupon/create-globalCoupon.dto';
+import { Pagination } from 'src/common/tools/pagination.tool';
 
 @Injectable()
 export class GlobalCouponAdminService {
@@ -78,5 +79,32 @@ export class GlobalCouponAdminService {
       throw new NotFoundException('There is no coupon for this product');
 
     return { success: true };
+  }
+
+  public async getCoupons(page: number) {
+    const pagination = Pagination({ page, take: 20 });
+
+    const coupons = await this.GlobalCoupon_Repository.find({
+      order: { createdAt: 'DESC' },
+      relations: ['product'],
+      select: {
+        id: true,
+        percent: true,
+        expiredAt: true,
+        createdAt: true,
+        product: {
+          id: true,
+          name: true,
+        },
+      },
+      take: pagination.take,
+      skip: pagination.skip,
+    });
+
+    return {
+      page,
+      coupons,
+      count: coupons.length,
+    };
   }
 }
