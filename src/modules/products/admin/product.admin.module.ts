@@ -17,6 +17,9 @@ import { UserCouponAdminService } from './services/user-coupon.admin.service';
 import { UserCouponEntity } from '../entities/user_coupon.entity';
 import { UserAppService } from 'src/modules/users/client/user.client.service';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
+import { GlobalCouponAdminController } from './controllers/global-coupon.admin.controller';
+import { GlobalCouponAdminService } from './services/global-coupon.admin.service';
+import { GlobalCouponEntity } from '../entities/global_coupon.entity';
 
 @Module({
   imports: [
@@ -27,9 +30,14 @@ import { UserEntity } from 'src/modules/users/entities/user.entity';
       SubCategoryEntity,
       UserCouponEntity,
       UserEntity,
+      GlobalCouponEntity,
     ]),
   ],
-  controllers: [ProductAdminController, UserCouponAdminController],
+  controllers: [
+    ProductAdminController,
+    UserCouponAdminController,
+    GlobalCouponAdminController,
+  ],
   providers: [
     ProductAdminService,
     JwtService,
@@ -40,6 +48,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity';
     ImageService,
     UserCouponAdminService,
     UserAppService,
+    GlobalCouponAdminService,
   ],
 })
 export class ProductAdminModule {}
