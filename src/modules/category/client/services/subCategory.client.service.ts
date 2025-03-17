@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubCategoryEntity } from '../../entities/subCategory.entity';
 import { Repository } from 'typeorm';
@@ -14,11 +14,10 @@ export class SubCategoryAppService {
   //private methods
 
   //public methods
-  public async getSubCategories(page: number) {
-    const pagination = Pagination({ page, take: 20 });
-
+  public async getSubCategories(category_id: number) {
     const subCategories = await this.subCategory_Repository.find({
       order: { createdAt: 'DESC' },
+      where: { category: { id: category_id } },
       relations: ['category'],
       select: {
         id: true,
@@ -30,12 +29,11 @@ export class SubCategoryAppService {
           createdAt: true,
         },
       },
-      skip: pagination.skip,
-      take: pagination.take,
     });
 
+    if (subCategories.length < 1)
+      throw new NotFoundException('There is no subCategory for this category');
     return {
-      page,
       subCategories,
       count: subCategories.length,
     };
