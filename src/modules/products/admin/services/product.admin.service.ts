@@ -3,13 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateProductDto } from '../dto/create-product.dto';
+import { CreateProductDto } from '../dto/products/create-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from '../../entities/product.entity';
 import { Repository } from 'typeorm';
 import { ProductAdminFactory } from '../product.admin.factory';
 import { Pagination } from 'src/common/tools/pagination.tool';
-import { UpdateProductDto } from '../dto/update-product.dto';
+import { UpdateProductDto } from '../dto/products/update-product.dto';
 import { ImageService } from 'src/modules/image/image.service';
 import { resolve } from 'path';
 import { existsSync } from 'fs';

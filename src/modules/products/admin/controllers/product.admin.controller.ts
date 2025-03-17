@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ProductAdminService } from '../services/product.admin.service';
 import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
-import { CreateProductDto } from '../dto/create-product.dto';
+import { CreateProductDto } from '../dto/products/create-product.dto';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -24,8 +24,8 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { UpdateProductDto } from '../dto/update-product.dto';
-import { AddProductImageDto } from '../dto/add-productImage.dto';
+import { UpdateProductDto } from '../dto/products/update-product.dto';
+import { AddProductImageDto } from '../dto/products/add-productImage.dto';
 
 @Controller('api/v1/admin/products')
 @ApiTags('admin-products')
