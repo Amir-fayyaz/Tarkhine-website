@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpCode,
   HttpStatus,
   Param,
@@ -22,7 +23,7 @@ import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
 @Controller('api/v1/admin/global-coupon')
 @ApiTags('admin-GlobalCoupon')
 @ApiBearerAuth()
-@UseGuards(AdminGuard)
+// @UseGuards(AdminGuard)
 export class GlobalCouponAdminController {
   constructor(private readonly CouponService: GlobalCouponAdminService) {}
 
@@ -36,5 +37,16 @@ export class GlobalCouponAdminController {
     @Param('id', ParseIntPipe) product_id: number,
   ) {
     return await this.CouponService.createCouponForProduct(data, product_id);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'For delete Produdct-coupon' })
+  @ApiParam({
+    name: 'id',
+    description: 'product-id of product that have an discount-coupon',
+  })
+  @HttpCode(HttpStatus.OK)
+  async deleteCoupon(@Param('id', ParseIntPipe) product_id: number) {
+    return await this.CouponService.deleteCoupon(product_id);
   }
 }
