@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -64,5 +65,14 @@ export class UserCouponAdminController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
     return await this.CouponService.getAllUserCoupons(page);
+  }
+
+  //DELETE -
+  @Delete(':id')
+  @ApiOperation({ summary: 'For delete usser-coupon' })
+  @ApiParam({ name: 'id', description: 'coupon-id you want to remove' })
+  @HttpCode(HttpStatus.OK)
+  async deleteCoupon(@Param('id', ParseIntPipe) coupon_id: number) {
+    return await this.CouponService.deleteUserCoupon(coupon_id);
   }
 }
