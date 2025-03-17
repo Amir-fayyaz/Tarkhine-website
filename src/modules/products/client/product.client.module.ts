@@ -19,6 +19,9 @@ import { ImageService } from 'src/modules/image/image.service';
 import { StarAppService } from './services/star.client.service';
 import { StarAppController } from './controllers/star.client.controller';
 import { StarEntity } from '../entities/stars.entity';
+import { UserCouponAppController } from './controllers/user-coupon.client.controller';
+import { UserCouponAppService } from './services/user-coupon.client.service';
+import { UserCouponEntity } from '../entities/user_coupon.entity';
 
 @Module({
   imports: [
@@ -29,9 +32,15 @@ import { StarEntity } from '../entities/stars.entity';
       CategoryEntity,
       SubCategoryEntity,
       StarEntity,
+      UserCouponEntity,
     ]),
   ],
-  controllers: [ProductAppController, LikeAppController, StarAppController],
+  controllers: [
+    ProductAppController,
+    LikeAppController,
+    StarAppController,
+    UserCouponAppController,
+  ],
   providers: [
     AuthAppFactory,
     UserAppService,
@@ -43,6 +52,7 @@ import { StarEntity } from '../entities/stars.entity';
     SubCategoryAdminService,
     ImageService,
     StarAppService,
+    UserCouponAppService,
   ],
 })
 export class ProductAppModule {}
