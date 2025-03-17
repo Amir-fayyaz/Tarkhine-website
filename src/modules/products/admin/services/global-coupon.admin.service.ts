@@ -68,4 +68,15 @@ export class GlobalCouponAdminService {
       );
     }
   }
+
+  public async deleteCoupon(product_id: number) {
+    const deleteResult = await this.GlobalCoupon_Repository.delete({
+      product: { id: product_id },
+    });
+
+    if (deleteResult.affected === 0)
+      throw new NotFoundException('There is no coupon for this product');
+
+    return { success: true };
+  }
 }
