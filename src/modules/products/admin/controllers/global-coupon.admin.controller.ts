@@ -1,12 +1,15 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
   ParseIntPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { GlobalCouponAdminService } from '../services/global-coupon.admin.service';
@@ -48,5 +51,12 @@ export class GlobalCouponAdminController {
   @HttpCode(HttpStatus.OK)
   async deleteCoupon(@Param('id', ParseIntPipe) product_id: number) {
     return await this.CouponService.deleteCoupon(product_id);
+  }
+
+  @Get()
+  async getCoupons(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ) {
+    return await this.CouponService.getCoupons(page);
   }
 }
