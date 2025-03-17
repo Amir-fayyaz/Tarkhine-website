@@ -32,12 +32,6 @@ export class ProductAdminService {
     const product = await this.Product_Repository.findOne({
       where: {
         name: data.name,
-        category: {
-          id: data.category_id,
-        },
-        subCategory: {
-          id: data.subCategory_id,
-        },
       },
     });
 

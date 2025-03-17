@@ -18,6 +18,7 @@ export class ProductAppService {
     const pagination = Pagination({ page, take: 20 });
 
     const products = await this.Product_repository.find({
+      where: { subCategory: { id: subCategory_id } },
       order: { createdAt: 'DESC' },
       relations: ['category', 'subCategory'],
       skip: pagination.skip,
