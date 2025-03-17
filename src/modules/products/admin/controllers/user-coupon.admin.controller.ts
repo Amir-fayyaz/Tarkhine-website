@@ -13,7 +13,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserCouponAdminService } from '../services/user-coupon.admin.service';
-import { CreateUserCouponDto } from '../dto/create-userCoupon.dto';
+import { CreateUserCouponDto } from '../dto/user-coupon/create-userCoupon.dto';
 import {
   ApiBearerAuth,
   ApiBody,

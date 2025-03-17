@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserCouponEntity } from '../../entities/user_coupon.entity';
 import { Repository } from 'typeorm';
-import { CreateUserCouponDto } from '../dto/create-userCoupon.dto';
+import { CreateUserCouponDto } from '../dto/user-coupon/create-userCoupon.dto';
 import { UserAppService } from 'src/modules/users/client/user.client.service';
 import { Pagination } from 'src/common/tools/pagination.tool';
 
