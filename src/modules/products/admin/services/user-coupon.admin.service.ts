@@ -83,4 +83,21 @@ export class UserCouponAdminService {
       count: coupons.length,
     };
   }
+
+  public async deleteUserCoupon(coupon_id: number) {
+    //   return (await this.UserCoupon_Repository.delete({ id: coupon_id }))
+    //     .affected === 0
+    //     ? new NotFoundException('There is no coupon with this id')
+    //     : { statusCode: 200, message: 'Coupon deleted successfully' };
+    // }
+
+    const deleteResult = await this.UserCoupon_Repository.delete({
+      id: coupon_id,
+    });
+
+    if (deleteResult.affected === 0)
+      throw new NotFoundException('There is no coupon with this id');
+
+    return { success: true };
+  }
 }
