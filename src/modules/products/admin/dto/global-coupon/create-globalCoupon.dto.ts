@@ -8,7 +8,7 @@ export class CreateGlobalCouponDto {
   @ApiProperty({ description: 'discount percent' })
   percent: number;
 
-  // @IsDate()
+  @IsDate()
   @IsNotEmpty()
   @ApiProperty()
   expiredAt: Date;
