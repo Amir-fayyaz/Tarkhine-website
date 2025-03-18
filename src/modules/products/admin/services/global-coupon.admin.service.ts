@@ -47,7 +47,10 @@ export class GlobalCouponAdminService {
         product,
       });
 
-      return await this.GlobalCoupon_Repository.save(newCoupon);
+      const savedCoupon = await this.GlobalCoupon_Repository.save(newCoupon);
+      await this.ProductService.AddCouponToProduct(product_id, savedCoupon);
+
+      return savedCoupon;
     }
 
     const expireResult = this.CheckExpire(coupon);
@@ -62,7 +65,10 @@ export class GlobalCouponAdminService {
         product,
       });
 
-      return await this.GlobalCoupon_Repository.save(newCoupon);
+      const savedCoupon = await this.GlobalCoupon_Repository.save(newCoupon);
+      await this.ProductService.AddCouponToProduct(product_id, savedCoupon);
+
+      return savedCoupon;
     } else {
       throw new ConflictException(
         ' discount-coupon for this product already exist , please delete coupon first',
