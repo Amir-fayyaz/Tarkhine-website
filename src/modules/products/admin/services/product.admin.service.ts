@@ -59,7 +59,7 @@ export class ProductAdminService {
     const products = await this.Product_Repository.find({
       where: { subCategory: { id: SubCategory_id } },
       order: { createdAt: 'DESC' },
-      relations: ['category'],
+      relations: ['category', 'subCategory', 'coupon'],
       select: {
         id: true,
         name: true,
@@ -93,7 +93,7 @@ export class ProductAdminService {
   public async getProductById(id: number) {
     const product = await this.Product_Repository.findOne({
       where: { id },
-      relations: ['category', 'subCategory'],
+      relations: ['category', 'subCategory', 'coupon'],
     });
 
     if (!product)

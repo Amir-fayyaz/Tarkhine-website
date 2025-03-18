@@ -30,20 +30,8 @@ export class ProductAppController {
   @Get(':id')
   @ApiOperation({ summary: 'For get products with special subCategory' })
   @ApiParam({ name: 'id', description: 'subCategory-id' })
-  @ApiQuery({
-    name: 'page',
-    description: 'For pagination',
-    required: false,
-    default: 1,
-  })
   @HttpCode(HttpStatus.OK)
-  async getProducts(
-    @Param('id', ParseIntPipe) subCategory_id: number,
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-  ) {
-    return await this.ProductService.getProductsBySubCategory(
-      page,
-      subCategory_id,
-    );
+  async getProducts(@Param('id', ParseIntPipe) subCategory_id: number) {
+    return await this.ProductService.getProductsBySubCategory(subCategory_id);
   }
 }

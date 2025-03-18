@@ -14,19 +14,14 @@ export class ProductAppService {
   //private methods
 
   //public methods
-  public async getProductsBySubCategory(page: number, subCategory_id: number) {
-    const pagination = Pagination({ page, take: 20 });
-
+  public async getProductsBySubCategory(subCategory_id: number) {
     const products = await this.Product_repository.find({
       where: { subCategory: { id: subCategory_id } },
       order: { createdAt: 'DESC' },
-      relations: ['category', 'subCategory'],
-      skip: pagination.skip,
-      take: pagination.take,
+      relations: ['category', 'subCategory', 'coupon'],
     });
 
     return {
-      page,
       products,
       count: products.length,
     };
