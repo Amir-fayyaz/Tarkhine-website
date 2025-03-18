@@ -15,6 +15,7 @@ import { resolve } from 'path';
 import { existsSync } from 'fs';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
+import { GlobalCouponEntity } from '../../entities/global_coupon.entity';
 
 //! refactoring
 @Injectable()
@@ -173,5 +174,18 @@ export class ProductAdminService {
       await this.Product_Repository.save(product);
       return { succcess: true };
     }
+  }
+
+  public async AddCouponToProduct(
+    product_id: number,
+    coupon: GlobalCouponEntity,
+  ) {
+    const { product } = await this.getProductById(product_id);
+
+    product.coupon = coupon;
+
+    await this.Product_Repository.save(product);
+
+    return { success: true };
   }
 }
