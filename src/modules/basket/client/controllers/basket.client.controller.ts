@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -68,5 +69,17 @@ export class BasketAppController {
   @HttpCode(HttpStatus.OK)
   async getUserBasket(@User() user: UserEntity) {
     return await this.BasketService.getUserBasket(user);
+  }
+
+  //DELETE -
+  @Delete(':id')
+  @ApiOperation({ summary: 'For delete product from basket' })
+  @ApiParam({ name: 'id', description: 'product-id' })
+  @HttpCode(HttpStatus.OK)
+  async deleteProductFromBasket(
+    @Param('id', ParseIntPipe) product_id: number,
+    @User() user: UserEntity,
+  ) {
+    return await this.BasketService.deleteProductFromBasket(product_id, user);
   }
 }
