@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -47,15 +48,25 @@ export class BasketAppController {
     return await this.BasketService.AddProductToBasket(data, product_id, user);
   }
 
+  //PUT -
   @Put(':id')
   @ApiOperation({ summary: 'For upadate product-quantity in basket' })
   @ApiBody({ type: UpdateProductQuantityDto, description: 'requirment fields' })
   @ApiParam({ name: 'id', description: 'product-id' })
+  @HttpCode(HttpStatus.OK)
   async UpdateProductQuantityInBasket(
     @Param('id', ParseIntPipe) product_id: number,
     @Body() data: UpdateProductQuantityDto,
     @User() user: UserEntity,
   ) {
     return await this.BasketService.UpdateQuantity(data, product_id, user);
+  }
+
+  //GET -
+  @Get()
+  @ApiOperation({ summary: 'For get user-basket' })
+  @HttpCode(HttpStatus.OK)
+  async getUserBasket(@User() user: UserEntity) {
+    return await this.BasketService.getUserBasket(user);
   }
 }
