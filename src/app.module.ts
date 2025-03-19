@@ -9,6 +9,7 @@ import * as path from 'path';
 import { StaticServeOptions } from './common/configs/StaticServe.config';
 import { ProductModule } from './modules/products/product.module';
 import { BasketModule } from './modules/basket/basket.module';
+import { OrderModule } from './modules/orders/order.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { BasketModule } from './modules/basket/basket.module';
     ImageModule,
     ProductModule,
     BasketModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],
