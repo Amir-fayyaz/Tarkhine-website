@@ -8,6 +8,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { StaticServeOptions } from './common/configs/StaticServe.config';
 import { ProductModule } from './modules/products/product.module';
+import { BasketModule } from './modules/basket/basket.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProductModule } from './modules/products/product.module';
     CategoryModule,
     ImageModule,
     ProductModule,
+    BasketModule,
   ],
   controllers: [],
   providers: [],
