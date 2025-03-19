@@ -1,10 +1,15 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BasketEntity } from '../../entities/basket.entity';
 import { Repository } from 'typeorm';
 import { ProductAdminService } from 'src/modules/products/admin/services/product.admin.service';
 import { AddProductToBasketDto } from '../dto/addProductToBasket.dto';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
+import { UpdateProductQuantityDto } from '../dto/updateQuantity.dto';
 
 @Injectable()
 export class BasketAppService {
@@ -38,5 +43,21 @@ export class BasketAppService {
     const newBasket = this.Basket_Repository.create({ ...data, product, user });
 
     return await this.Basket_Repository.save(newBasket);
+  }
+
+  public async UpdateQuantity(
+    data: UpdateProductQuantityDto,
+    product_id: number,
+    user: UserEntity,
+  ) {
+    const updateResult = await this.Basket_Repository.update(
+      { product: { id: product_id }, user: { id: user.id } },
+      { ...data },
+    );
+
+    if (updateResult.affected === 0)
+      throw new NotFoundException('This product is not in your basket');
+
+    return { success: true };
   }
 }
