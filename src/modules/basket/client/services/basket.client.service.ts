@@ -60,4 +60,12 @@ export class BasketAppService {
 
     return { success: true };
   }
+
+  public async getUserBasket(user: UserEntity) {
+    return await this.Basket_Repository.find({
+      where: { user: { id: user.id } },
+      order: { createdAt: 'DESC' },
+      relations: ['product'],
+    });
+  }
 }
