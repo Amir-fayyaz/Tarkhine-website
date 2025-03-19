@@ -12,6 +12,7 @@ import { LikeEntity } from './like.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { StarEntity } from './stars.entity';
 import { GlobalCouponEntity } from './global_coupon.entity';
+import { BasketEntity } from 'src/modules/basket/entities/basket.entity';
 
 //!
 @Entity('product')
@@ -49,7 +50,12 @@ export class ProductEntity extends Base {
   @OneToMany(() => StarEntity, (star) => star.product)
   stars: StarEntity[];
 
-  @OneToOne(() => GlobalCouponEntity, (coupon) => coupon.product)
+  @OneToMany(() => BasketEntity, (basket) => basket.product)
+  baskets: BasketEntity[];
+
+  @OneToOne(() => GlobalCouponEntity, (coupon) => coupon.product, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'coupon' })
   coupon: GlobalCouponEntity;
 }

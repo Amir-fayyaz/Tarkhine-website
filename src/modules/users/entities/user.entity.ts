@@ -1,4 +1,5 @@
 import { Base } from 'src/common/abstracts/base.entity';
+import { BasketEntity } from 'src/modules/basket/entities/basket.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
 import { StarEntity } from 'src/modules/products/entities/stars.entity';
 import { UserCouponEntity } from 'src/modules/products/entities/user_coupon.entity';
@@ -33,6 +34,9 @@ export class UserEntity extends Base {
 
   @OneToMany(() => StarEntity, (star) => star.user)
   stars: StarEntity[];
+
+  @OneToMany(() => BasketEntity, (basket) => basket.user)
+  baskets: BasketEntity[];
 
   @OneToMany(() => UserCouponEntity, (coupon) => coupon.user)
   coupons: UserCouponEntity[];

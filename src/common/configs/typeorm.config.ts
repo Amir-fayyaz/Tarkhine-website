@@ -3,6 +3,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
 import { OtpEntity } from 'src/modules/auth/entities/otp.entity';
+import { BasketEntity } from 'src/modules/basket/entities/basket.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { GlobalCouponEntity } from 'src/modules/products/entities/global_coupon.entity';
@@ -32,6 +33,7 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     StarEntity,
     GlobalCouponEntity,
     UserCouponEntity,
+    BasketEntity,
   ],
   synchronize: true,
 };
