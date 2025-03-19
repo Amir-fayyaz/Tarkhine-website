@@ -68,4 +68,18 @@ export class BasketAppService {
       relations: ['product'],
     });
   }
+
+  public async deleteProductFromBasket(product_id: number, user: UserEntity) {
+    const deleteResult = await this.Basket_Repository.delete({
+      product: { id: product_id },
+      user: { id: user.id },
+    });
+
+    if (deleteResult.affected === 0)
+      throw new NotFoundException(
+        'You dont have this product in your basket to delete',
+      );
+
+    return { success: true };
+  }
 }
