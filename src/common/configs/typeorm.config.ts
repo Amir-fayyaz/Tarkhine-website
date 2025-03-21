@@ -6,6 +6,7 @@ import { OtpEntity } from 'src/modules/auth/entities/otp.entity';
 import { BasketEntity } from 'src/modules/basket/entities/basket.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
+import { AddressEntity } from 'src/modules/orders/entities/address.entity';
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import { GlobalCouponEntity } from 'src/modules/products/entities/global_coupon.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
@@ -36,6 +37,7 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     UserCouponEntity,
     BasketEntity,
     OrderEntity,
+    AddressEntity,
   ],
   synchronize: true,
 };

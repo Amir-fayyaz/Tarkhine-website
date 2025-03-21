@@ -1,6 +1,7 @@
 import { Base } from 'src/common/abstracts/base.entity';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { AddressEntity } from './address.entity';
 
 @Entity('order')
 export class OrderEntity extends Base {
@@ -17,4 +18,8 @@ export class OrderEntity extends Base {
   @ManyToOne(() => UserEntity, (user) => user.orders)
   @JoinColumn({ name: 'user' })
   user: UserEntity;
+
+  @ManyToOne(() => AddressEntity, (address) => address.orders)
+  @JoinColumn({ name: 'address' })
+  address: AddressEntity;
 }
