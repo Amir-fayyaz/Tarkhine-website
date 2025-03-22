@@ -6,10 +6,10 @@ import { UserEntity } from 'src/modules/users/entities/user.entity';
 @Entity('address')
 export class AddressEntity extends Base {
   @Column({ type: 'decimal', precision: 10, scale: 8, nullable: false })
-  latitude: number;
+  latitude: string;
 
   @Column({ type: 'decimal', precision: 11, scale: 8, nullable: false })
-  longitude: number;
+  longitude: string;
 
   @Column({ type: 'varchar', nullable: false })
   address: string;
