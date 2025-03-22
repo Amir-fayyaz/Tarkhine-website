@@ -2,11 +2,12 @@ import { Base } from 'src/common/abstracts/base.entity';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { AddressEntity } from './address.entity';
+import { orderStatus } from '../enums/orderStatus.type';
 
 @Entity('order')
 export class OrderEntity extends Base {
-  @Column({ type: 'boolean', default: false })
-  status: Boolean;
+  @Column({ type: 'enum', enum: orderStatus, default: false })
+  status: orderStatus;
 
   @Column({ type: 'int', nullable: false })
   TotalPrice: number;
