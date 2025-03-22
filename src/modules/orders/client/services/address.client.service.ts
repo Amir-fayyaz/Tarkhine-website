@@ -35,4 +35,16 @@ export class AddressAppService {
 
     return { success: true };
   }
+
+  //For exports
+  public async getAddressById(address_id: number) {
+    const address = await this.Address_Repository.findOne({
+      where: { id: address_id },
+    });
+
+    if (!address)
+      throw new NotFoundException('There is no address with this id');
+
+    return { address };
+  }
 }
