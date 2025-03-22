@@ -17,4 +17,10 @@ export class AddressAppService {
 
     return await this.Address_Repository.save(newAddress);
   }
+
+  public async getUserAddress(user: UserEntity) {
+    return await this.Address_Repository.find({
+      where: { user: { id: user.id } },
+    });
+  }
 }
