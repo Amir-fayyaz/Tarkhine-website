@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AddressEntity } from '../../entities/address.entity';
 import { Repository } from 'typeorm';
@@ -22,5 +22,17 @@ export class AddressAppService {
     return await this.Address_Repository.find({
       where: { user: { id: user.id } },
     });
+  }
+
+  public async deleteUserAddress(address_id: number, user_id: number) {
+    const deleteResult = await this.Address_Repository.delete({
+      id: address_id,
+      user: { id: user_id },
+    });
+
+    if (deleteResult.affected === 0)
+      throw new NotFoundException('There is no address For this user');
+
+    return { success: true };
   }
 }
