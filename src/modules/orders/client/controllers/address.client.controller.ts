@@ -1,4 +1,12 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AddressAppService } from '../services/address.client.service';
 import { CreateAddressDTO } from '../dto/address/create-address.dto';
 import { User } from 'src/common/decorators/getUser.decorator';
@@ -16,10 +24,17 @@ export class AddressAppController {
   @Post()
   @ApiOperation({ summary: 'For create new address' })
   @ApiBody({ type: CreateAddressDTO, description: 'required fields' })
+  @HttpCode(HttpStatus.CREATED)
   async AddNewAddress(
     @Body() data: CreateAddressDTO,
     @User() user: UserEntity,
   ) {
     return await this.AddressService.AddNewAddress(data, user);
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async getUserAddress(@User() user: UserEntity) {
+    return await this.AddressService.getUserAddress(user);
   }
 }
