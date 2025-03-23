@@ -6,7 +6,7 @@ import { orderStatus } from '../enums/orderStatus.type';
 
 @Entity('order')
 export class OrderEntity extends Base {
-  @Column({ type: 'enum', enum: orderStatus, default: false })
+  @Column({ type: 'enum', enum: orderStatus, default: orderStatus.PENDING })
   status: orderStatus;
 
   @Column({ type: 'int', nullable: false })
