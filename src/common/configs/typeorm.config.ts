@@ -8,6 +8,7 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { AddressEntity } from 'src/modules/orders/entities/address.entity';
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { PaymentEntity } from 'src/modules/payment/entities/payment.entity';
 import { GlobalCouponEntity } from 'src/modules/products/entities/global_coupon.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
 import { ProductEntity } from 'src/modules/products/entities/product.entity';
@@ -38,6 +39,7 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     BasketEntity,
     OrderEntity,
     AddressEntity,
+    PaymentEntity,
   ],
   synchronize: true,
 };

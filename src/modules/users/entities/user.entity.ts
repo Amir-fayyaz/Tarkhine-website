@@ -2,6 +2,7 @@ import { Base } from 'src/common/abstracts/base.entity';
 import { BasketEntity } from 'src/modules/basket/entities/basket.entity';
 import { AddressEntity } from 'src/modules/orders/entities/address.entity';
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { PaymentEntity } from 'src/modules/payment/entities/payment.entity';
 import { LikeEntity } from 'src/modules/products/entities/like.entity';
 import { StarEntity } from 'src/modules/products/entities/stars.entity';
 import { UserCouponEntity } from 'src/modules/products/entities/user_coupon.entity';
@@ -48,4 +49,7 @@ export class UserEntity extends Base {
 
   @OneToMany(() => AddressEntity, (address) => address.user)
   address: AddressEntity[];
+
+  @OneToMany(() => PaymentEntity, (payment) => payment.user)
+  payments: PaymentEntity[];
 }

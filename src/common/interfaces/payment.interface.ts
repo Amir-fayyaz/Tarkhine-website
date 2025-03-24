@@ -1,5 +1,7 @@
+import { requestPayemnt } from '../types/requestPayment.type';
+
 export interface Payment {
   verifyPayment();
 
-  createPayment();
+  requestPayment(data: requestPayemnt): Promise<any>;
 }
