@@ -8,7 +8,8 @@ import { PaymentEntity } from '../entities/payment.entity';
 import { Repository } from 'typeorm';
 import { ZarinPalService } from 'src/common/services/payment/zarinPal-service.service';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
-import { RequestPayment } from './dto/requestPayment.dto';
+import { RequestPaymentDto } from './dto/requestPayment.dto';
+import { VerfiyPaymentDto } from './dto/verifyPayment.dto';
 
 @Injectable()
 export class PaymentAppService {
@@ -34,7 +35,7 @@ export class PaymentAppService {
   }
 
   //public methods
-  public async requestPayment(data: RequestPayment, user: UserEntity) {
+  public async requestPayment(data: RequestPaymentDto, user: UserEntity) {
     try {
       const requestResult = await this.ZarinPalService.requestPayment({
         amount: data.amount,
@@ -59,5 +60,19 @@ export class PaymentAppService {
     }
   }
 
-  verifyPayment() {}
+  public async verifyPayment(authority: string, data: VerfiyPaymentDto) {
+    // sure to exist payment with this authority
+
+    await this.FindPaymentByAuthority(authority);
+
+    const verifyResult = await this.ZarinPalService.verifyPayment({
+      amount: data.amount,
+      authority,
+    });
+
+    return {
+      status: verifyResult.status,
+      refId: verifyResult.refId,
+    };
+  }
 }
