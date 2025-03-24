@@ -83,7 +83,7 @@ export class UserCouponAppService {
     if (CheckRange) {
       await this.UserCoupon_Repository.remove(coupon);
 
-      return { success: true };
+      return { success: true, coupon };
     } else {
       throw new BadRequestException(
         `Your total-price must be at least ${coupon.product_range} to use this coupon`,
