@@ -3,6 +3,7 @@ import { ZarinPalInstance, create } from 'zarinpal-checkout';
 import { Payment } from '../../interfaces/payment.interface';
 import { config } from 'dotenv';
 import { requestPayemnt } from 'src/common/types/requestPayment.type';
+import { verifyPayment } from 'src/common/types/verifyPayment.type';
 
 config();
 @Injectable()
@@ -34,5 +35,15 @@ export class ZarinPalService implements Payment {
     }
   }
 
-  verifyPayment() {}
+  async verifyPayment(data: verifyPayment) {
+    const verifyResult = await this.zarinPal.PaymentVerification({
+      Amount: data.amount,
+      Authority: data.authority,
+    });
+
+    return {
+      status: verifyResult.status,
+      refId: verifyResult.refId,
+    };
+  }
 }
