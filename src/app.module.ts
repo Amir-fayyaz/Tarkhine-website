@@ -10,6 +10,7 @@ import { StaticServeOptions } from './common/configs/StaticServe.config';
 import { ProductModule } from './modules/products/product.module';
 import { BasketModule } from './modules/basket/basket.module';
 import { OrderModule } from './modules/orders/order.module';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { OrderModule } from './modules/orders/order.module';
     ProductModule,
     BasketModule,
     OrderModule,
+    PaymentModule,
   ],
   controllers: [],
   providers: [],
