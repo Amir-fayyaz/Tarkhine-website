@@ -7,7 +7,7 @@ import {
   Matches,
 } from 'class-validator';
 
-export class RequestPayment {
+export class RequestPaymentDto {
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ description: 'totalPrice of basket' })
