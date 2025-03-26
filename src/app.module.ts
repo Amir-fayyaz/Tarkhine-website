@@ -11,6 +11,7 @@ import { ProductModule } from './modules/products/product.module';
 import { BasketModule } from './modules/basket/basket.module';
 import { OrderModule } from './modules/orders/order.module';
 import { PaymentModule } from './modules/payment/payment.module';
+import { UserModule } from './modules/users/user.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { PaymentModule } from './modules/payment/payment.module';
     BasketModule,
     OrderModule,
     PaymentModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
