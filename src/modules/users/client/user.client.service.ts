@@ -11,6 +11,12 @@ export class UserAppService {
     private readonly User_Repository: Repository<UserEntity>,
   ) {}
 
+  public async getProfile(user: UserEntity) {
+    return await this.User_Repository.findOne({
+      where: { id: user.id },
+      relations: ['address', 'coupons'],
+    });
+  }
   //exports methods
   public async FindUserByMobile(mobile: string) {
     return await this.User_Repository.findOne({
