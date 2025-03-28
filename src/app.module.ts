@@ -14,12 +14,19 @@ import { PaymentModule } from './modules/payment/payment.module';
 import { UserModule } from './modules/users/user.module';
 import { IntializeSuperAdminService } from './common/services/admin/create-superAdmin.service';
 import { AdminEntity } from './modules/auth/entities/admin.entity';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { throttlerOptions } from './common/configs/Throttler.config';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot(StaticServeOptions),
     TypeOrmModule.forRoot(TypeOrmConfigs),
     TypeOrmModule.forFeature([AdminEntity]),
+    ThrottlerModule.forRoot({
+      throttlers: [throttlerOptions],
+      errorMessage: 'Too many request , wait for seconds',
+    }),
     AuthModule,
     CategoryModule,
     ImageModule,
@@ -30,7 +37,13 @@ import { AdminEntity } from './modules/auth/entities/admin.entity';
     UserModule,
   ],
   controllers: [],
-  providers: [IntializeSuperAdminService],
+  providers: [
+    IntializeSuperAdminService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule implements OnApplicationBootstrap {
   constructor(
