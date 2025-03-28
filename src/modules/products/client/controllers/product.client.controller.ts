@@ -18,11 +18,13 @@ import {
 } from '@nestjs/swagger';
 import { UserGuard } from 'src/modules/auth/guards/User.guard';
 import { ProductAppService } from '../services/product.client.service';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/products')
 @ApiTags('client-product')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class ProductAppController {
   constructor(private readonly ProductService: ProductAppService) {}
 

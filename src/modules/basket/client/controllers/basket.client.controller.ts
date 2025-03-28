@@ -24,11 +24,13 @@ import { AddProductToBasketDto } from '../dto/addProductToBasket.dto';
 import { User } from 'src/common/decorators/getUser.decorator';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { UpdateProductQuantityDto } from '../dto/updateQuantity.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/baskets')
 @ApiTags('client-basket')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class BasketAppController {
   constructor(private readonly BasketService: BasketAppService) {}
 

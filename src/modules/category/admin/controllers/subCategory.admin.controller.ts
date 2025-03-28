@@ -25,10 +25,12 @@ import {
 } from '@nestjs/swagger';
 import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
 import { UpdateSubCategoryDto } from '../dto/update-SubCategory.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @ApiTags('admin-subCategory')
 @ApiBearerAuth()
-// @UseGuards(AdminGuard)
+@UseGuards(AdminGuard)
+@SkipThrottle()
 @Controller('api/v1/admin/subCategories')
 export class SubCategoryAdminController {
   constructor(private readonly SubCategoryService: SubCategoryAdminService) {}

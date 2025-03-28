@@ -18,11 +18,13 @@ import { UserGuard } from 'src/modules/auth/guards/User.guard';
 import { LikeAppService } from '../services/like.client.service';
 import { User } from 'src/common/decorators/getUser.decorator';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/likes')
 @ApiTags('client-like')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class LikeAppController {
   constructor(private readonly LikeService: LikeAppService) {}
 

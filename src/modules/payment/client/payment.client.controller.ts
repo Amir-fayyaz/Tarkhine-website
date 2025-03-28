@@ -20,11 +20,13 @@ import { User } from 'src/common/decorators/getUser.decorator';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { RequestPaymentDto } from './dto/requestPayment.dto';
 import { VerfiyPaymentDto } from './dto/verifyPayment.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/payment')
 @ApiTags('client-payment')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class PaymnetAppController {
   constructor(private readonly PaymentService: PaymentAppService) {}
 

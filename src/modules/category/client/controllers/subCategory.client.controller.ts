@@ -18,11 +18,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserGuard } from 'src/modules/auth/guards/User.guard';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/subCategories')
 @ApiTags('client-subCategory')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class SubCategoryAppController {
   constructor(private readonly SubCategoryService: SubCategoryAppService) {}
 

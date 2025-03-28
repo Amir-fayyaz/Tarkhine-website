@@ -14,10 +14,12 @@ import { User } from 'src/common/decorators/getUser.decorator';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { ValidateCouponDTO } from '../dto/validate-userCoupon.dto';
 import { UseUserCouponDto } from '../dto/use-userCoupon.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/userCoupon')
 @ApiTags('client-userCoupon')
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class UserCouponAppController {
   constructor(private readonly UserCouponService: UserCouponAppService) {}
 

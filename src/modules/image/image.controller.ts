@@ -17,8 +17,10 @@ import { ApiBody, ApiConsumes, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UploadFileType } from './enums/UploadFile.enum';
 import { DeleteFileDto } from './dto/deleteFile.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/image')
+@SkipThrottle()
 export class ImageController {
   constructor(private readonly ImageService: ImageService) {}
 

@@ -26,11 +26,13 @@ import {
 } from '@nestjs/swagger';
 import { UpdateProductDto } from '../dto/products/update-product.dto';
 import { AddProductImageDto } from '../dto/products/add-productImage.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/admin/products')
 @ApiTags('admin-products')
 @ApiBearerAuth()
-// @UseGuards(AdminGuard)
+@UseGuards(AdminGuard)
+@SkipThrottle()
 export class ProductAdminController {
   constructor(private readonly ProductService: ProductAdminService) {}
 

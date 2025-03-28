@@ -22,11 +22,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/admin/global-coupon')
 @ApiTags('admin-GlobalCoupon')
 @ApiBearerAuth()
-// @UseGuards(AdminGuard)
+@UseGuards(AdminGuard)
+@SkipThrottle()
 export class GlobalCouponAdminController {
   constructor(private readonly CouponService: GlobalCouponAdminService) {}
 

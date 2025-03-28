@@ -26,11 +26,13 @@ import { CreateCategoryDto } from '../dto/create-category.dto';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
 import { UserGuard } from 'src/modules/auth/guards/User.guard';
 import { AdminGuard } from 'src/modules/auth/guards/Admin.guard';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/admin/category')
 @ApiTags('admin-category')
 @ApiBearerAuth()
 @UseGuards(AdminGuard)
+@SkipThrottle()
 export class CategoryAdminController {
   constructor(private readonly CategoryService: CategoryAdminService) {}
 

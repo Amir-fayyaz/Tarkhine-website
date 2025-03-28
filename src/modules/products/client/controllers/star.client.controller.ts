@@ -22,11 +22,13 @@ import { UserGuard } from 'src/modules/auth/guards/User.guard';
 import { CreateStarDto } from '../dto/create-star.dto';
 import { User } from 'src/common/decorators/getUser.decorator';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/stars')
 @ApiTags('client-star')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@SkipThrottle()
 export class StarAppController {
   constructor(private readonly starService: StarAppService) {}
 
