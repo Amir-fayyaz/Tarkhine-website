@@ -19,7 +19,7 @@ config();
 
 const { DB_USERNAME, DB_PASSWORD, DB_PORT, DB_HOST, DB_DATABASE } = process.env;
 export const TypeOrmConfigs: TypeOrmModuleOptions = {
-  type: 'mysql',
+  type: 'postgres',
   username: DB_USERNAME,
   password: DB_PASSWORD,
   port: Number(DB_PORT),
@@ -41,5 +41,5 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     AddressEntity,
     PaymentEntity,
   ],
-  synchronize: true,
+  synchronize: false,
 };
