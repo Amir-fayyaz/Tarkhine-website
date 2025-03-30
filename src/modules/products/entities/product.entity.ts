@@ -29,7 +29,7 @@ export class ProductEntity extends Base {
   @Column({ type: 'varchar', nullable: true })
   image_url: string;
 
-  @Column({ type: 'tinyint', nullable: true })
+  @Column({ type: 'int', nullable: true }) //! tinyint => int
   TotalStars: number;
 
   @Column({ type: 'int', nullable: false, default: 0 })

@@ -13,6 +13,6 @@ export class BasketEntity extends Base {
   @JoinColumn({ name: 'product' })
   product: ProductEntity;
 
-  @Column({ type: 'tinyint', nullable: false, default: 1 })
+  @Column({ type: 'int', nullable: false, default: 1 }) //! tinyint => int
   quantity: number;
 }

@@ -13,6 +13,6 @@ export class StarEntity extends Base {
   @JoinColumn({ name: 'user' })
   user: UserEntity;
 
-  @Column({ type: 'tinyint', nullable: false })
+  @Column({ type: 'int', nullable: false }) //! tinyint => int
   star: number;
 }
