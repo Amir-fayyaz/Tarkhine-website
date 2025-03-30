@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserAppService {
@@ -16,6 +17,17 @@ export class UserAppService {
       where: { id: user.id },
       relations: ['address', 'coupons'],
     });
+  }
+
+  public async editProfile(id: number, data: UpdateUserDto) {
+    const updateResult = await this.User_Repository.update(id, {
+      ...data,
+    });
+
+    if (updateResult.affected === 0)
+      throw new NotFoundException('There is no user with this id');
+
+    return { success: true };
   }
   //exports methods
   public async FindUserByMobile(mobile: string) {
