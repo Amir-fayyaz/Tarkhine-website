@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Post,
   Put,
   UseGuards,
 } from '@nestjs/common';
@@ -20,6 +21,7 @@ import { User } from 'src/common/decorators/getUser.decorator';
 import { UserEntity } from '../entities/user.entity';
 import { SkipThrottle } from '@nestjs/throttler';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AddUserImageDto } from './dto/addUserImage.dto';
 
 @Controller('api/v1/client/users')
 @ApiTags('client-user')
@@ -44,5 +46,12 @@ export class UserAppController {
     @Body() data: UpdateUserDto,
   ) {
     return await this.UserService.editProfile(id, data);
+  }
+
+  @Post('avatar')
+  @ApiOperation({ summary: 'For add user-image url' })
+  @ApiBody({ type: AddUserImageDto })
+  async addUserImage(@Body() data: AddUserImageDto, @User() user: UserEntity) {
+    return await this.UserService.addUserImage(data, user);
   }
 }
