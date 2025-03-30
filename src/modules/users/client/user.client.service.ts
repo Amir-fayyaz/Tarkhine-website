@@ -4,6 +4,7 @@ import { UserEntity } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AddUserImageDto } from './dto/addUserImage.dto';
 
 @Injectable()
 export class UserAppService {
@@ -22,6 +23,17 @@ export class UserAppService {
   public async editProfile(id: number, data: UpdateUserDto) {
     const updateResult = await this.User_Repository.update(id, {
       ...data,
+    });
+
+    if (updateResult.affected === 0)
+      throw new NotFoundException('There is no user with this id');
+
+    return { success: true };
+  }
+
+  public async addUserImage(data: AddUserImageDto, user: UserEntity) {
+    const updateResult = await this.User_Repository.update(user.id, {
+      avatar: data.path,
     });
 
     if (updateResult.affected === 0)
