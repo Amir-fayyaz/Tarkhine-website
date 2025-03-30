@@ -41,5 +41,5 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     AddressEntity,
     PaymentEntity,
   ],
-  synchronize: false,
+  synchronize: true,
 };
