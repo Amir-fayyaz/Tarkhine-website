@@ -42,4 +42,5 @@ export const TypeOrmConfigs: TypeOrmModuleOptions = {
     PaymentEntity,
   ],
   synchronize: true,
+  ssl: true,
 };
