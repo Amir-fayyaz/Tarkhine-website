@@ -17,12 +17,16 @@ import { AdminEntity } from './modules/auth/entities/admin.entity';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { throttlerOptions } from './common/configs/Throttler.config';
 import { APP_GUARD } from '@nestjs/core';
+import { RemoveExpireOtpService } from './common/services/clean-otp/clean-otp.service';
+import { OtpEntity } from './modules/auth/entities/otp.entity';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ServeStaticModule.forRoot(StaticServeOptions),
     TypeOrmModule.forRoot(TypeOrmConfigs),
-    TypeOrmModule.forFeature([AdminEntity]),
+    TypeOrmModule.forFeature([AdminEntity, OtpEntity]),
     ThrottlerModule.forRoot({
       throttlers: [throttlerOptions],
       errorMessage: 'Too many request , wait for seconds',
@@ -38,6 +42,7 @@ import { APP_GUARD } from '@nestjs/core';
   ],
   controllers: [],
   providers: [
+    RemoveExpireOtpService,
     IntializeSuperAdminService,
     {
       provide: APP_GUARD,
