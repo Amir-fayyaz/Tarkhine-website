@@ -15,7 +15,7 @@ import { CategoryAppService } from '../services/category.client.service';
 
 @Controller('api/v1/client/category')
 @ApiTags('client-Category')
-@UseGuards(UserGuard)
+// @UseGuards(UserGuard)
 @SkipThrottle()
 export class CategoryAppController {
   constructor(private readonly CategoryService: CategoryAppService) {}
