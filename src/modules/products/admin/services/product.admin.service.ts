@@ -10,12 +10,12 @@ import { Repository } from 'typeorm';
 import { ProductAdminFactory } from '../product.admin.factory';
 import { Pagination } from 'src/common/tools/pagination.tool';
 import { UpdateProductDto } from '../dto/products/update-product.dto';
-import { ImageService } from 'src/modules/image/image.service';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
 import { GlobalCouponEntity } from '../../entities/global_coupon.entity';
+import { S3Service } from 'src/modules/image/image.service';
 
 //! refactoring
 @Injectable()
@@ -25,7 +25,7 @@ export class ProductAdminService {
     private readonly Product_Repository: Repository<ProductEntity>,
     private readonly CategoryService: CategoryAdminService,
     private readonly SubCategoryService: SubCategoryAdminService,
-    private readonly ImageService: ImageService,
+    private readonly ImageService: S3Service,
   ) {}
 
   //public methods

@@ -9,7 +9,6 @@ import { AuthAdminService } from 'src/modules/auth/admin/auth.admin.service';
 import { AdminEntity } from 'src/modules/auth/entities/admin.entity';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { ImageService } from 'src/modules/image/image.service';
 import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { UserCouponAdminController } from './controllers/user-coupon.admin.controller';
@@ -20,6 +19,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { GlobalCouponAdminController } from './controllers/global-coupon.admin.controller';
 import { GlobalCouponAdminService } from './services/global-coupon.admin.service';
 import { GlobalCouponEntity } from '../entities/global_coupon.entity';
+import { S3Service } from 'src/modules/image/image.service';
 
 @Module({
   imports: [
@@ -45,7 +45,7 @@ import { GlobalCouponEntity } from '../entities/global_coupon.entity';
     AuthAdminService,
     CategoryAdminService,
     SubCategoryAdminService,
-    ImageService,
+    S3Service,
     UserCouponAdminService,
     UserAppService,
     GlobalCouponAdminService,

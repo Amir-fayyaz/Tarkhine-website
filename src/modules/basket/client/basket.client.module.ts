@@ -13,7 +13,7 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { CategoryAdminService } from 'src/modules/category/admin/services/category.admin.service';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
 import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
-import { ImageService } from 'src/modules/image/image.service';
+import { S3Service } from 'src/modules/image/image.service';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { ImageService } from 'src/modules/image/image.service';
     ProductAdminService,
     CategoryAdminService,
     SubCategoryAdminService,
-    ImageService,
+    S3Service,
   ],
 })
 export class BasketAppModule {}

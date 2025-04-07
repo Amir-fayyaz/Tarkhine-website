@@ -27,3 +27,4 @@ async function bootstrap() {
 bootstrap();
 
 // git push app master
+// http://localhost:3000/storage/uploads/food//1740750558428.jpg

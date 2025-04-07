@@ -15,13 +15,13 @@ import { CategoryAdminService } from 'src/modules/category/admin/services/catego
 import { SubCategoryAdminService } from 'src/modules/category/admin/services/subCategory.admin.service';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { SubCategoryEntity } from 'src/modules/category/entities/subCategory.entity';
-import { ImageService } from 'src/modules/image/image.service';
 import { StarAppService } from './services/star.client.service';
 import { StarAppController } from './controllers/star.client.controller';
 import { StarEntity } from '../entities/stars.entity';
 import { UserCouponAppController } from './controllers/user-coupon.client.controller';
 import { UserCouponAppService } from './services/user-coupon.client.service';
 import { UserCouponEntity } from '../entities/user_coupon.entity';
+import { S3Service } from 'src/modules/image/image.service';
 
 @Module({
   imports: [
@@ -50,7 +50,7 @@ import { UserCouponEntity } from '../entities/user_coupon.entity';
     ProductAdminService,
     CategoryAdminService,
     SubCategoryAdminService,
-    ImageService,
+    S3Service,
     StarAppService,
     UserCouponAppService,
   ],
