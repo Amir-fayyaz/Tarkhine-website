@@ -142,10 +142,10 @@ export class ProductAdminService {
     if (!product)
       throw new NotFoundException('There is no product with this id');
 
-    const filePath = resolve(path);
+    // const filePath = resolve(path);
 
-    if (!existsSync(filePath))
-      throw new NotFoundException('There is no image with this url');
+    // if (!existsSync(filePath))
+    //   throw new NotFoundException('There is no image with this url');
 
     product.image_url = path;
 
