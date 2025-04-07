@@ -6,23 +6,30 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ImageService } from './image.service';
+import { S3Service } from './image.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { MulterOption } from 'src/common/configs/Multer.config';
-import { ApiBody, ApiConsumes, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request } from 'express';
 import { UploadFileType } from './enums/UploadFile.enum';
 import { DeleteFileDto } from './dto/deleteFile.dto';
 import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/image')
+@ApiTags('image')
 @SkipThrottle()
-export class ImageController {
-  constructor(private readonly ImageService: ImageService) {}
+export class S3Controller {
+  constructor(private readonly ImageService: S3Service) {}
 
   @Post()
   @ApiOperation({ summary: 'For upload file into storage' })
@@ -45,13 +52,14 @@ export class ImageController {
     },
   })
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(FileInterceptor('file', MulterOption))
+  @UseInterceptors(FileInterceptor('file'))
   async UploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Req() request: Request,
+    @Query('uploadType') foldername: UploadFileType,
   ) {
     if (!request.file) throw new BadRequestException('Send file please');
-    return await this.ImageService.uploadFile(file);
+    return await this.ImageService.uploadFile(file, foldername);
   }
 
   @Delete()
