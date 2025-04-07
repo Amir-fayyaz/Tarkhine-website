@@ -71,7 +71,7 @@ export class S3Service {
         new PutObjectCommand(uploadParams as PutObjectCommandInput),
       );
       return {
-        url: `https://${this.bucketName}.storage.liara.space/${key}`,
+        url: `https://${this.bucketName}.storage.c2.liara.space/${key}`,
         key,
       };
     } catch (error) {
