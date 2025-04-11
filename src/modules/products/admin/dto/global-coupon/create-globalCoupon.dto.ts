@@ -1,5 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+} from 'class-validator';
 
 export class CreateGlobalCouponDto {
   @IsNumber()
@@ -8,7 +13,7 @@ export class CreateGlobalCouponDto {
   @ApiProperty({ description: 'discount percent' })
   percent: number;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
   @ApiProperty()
   expiredAt: Date;
