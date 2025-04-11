@@ -8,7 +8,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
 import { UserGuard } from 'src/modules/auth/guards/User.guard';
 import { CategoryAppService } from '../services/category.client.service';
@@ -17,6 +17,7 @@ import { CategoryAppService } from '../services/category.client.service';
 @ApiTags('client-Category')
 // @UseGuards(UserGuard)
 @SkipThrottle()
+@ApiHeader({ name: 'authorization' })
 export class CategoryAppController {
   constructor(private readonly CategoryService: CategoryAppService) {}
 

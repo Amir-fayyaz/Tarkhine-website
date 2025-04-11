@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { OrderAppService } from '../services/order.client.service';
 import { CreateOrderDto } from '../dto/orders/create-order.dto';
 import { User } from 'src/common/decorators/getUser.decorator';
@@ -16,6 +16,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/orders')
 @ApiTags('client-order')
+@ApiHeader({ name: 'authorization' })
 @UseGuards(UserGuard)
 @SkipThrottle()
 export class OrderAppController {

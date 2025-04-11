@@ -18,6 +18,7 @@ import { CreateSubCategoryDto } from '../dto/create-SubCategory.dto';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -30,6 +31,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('admin-subCategory')
 @ApiBearerAuth()
 @UseGuards(AdminGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 @Controller('api/v1/admin/subCategories')
 export class SubCategoryAdminController {

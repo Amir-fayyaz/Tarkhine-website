@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -24,6 +25,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('client-like')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class LikeAppController {
   constructor(private readonly LikeService: LikeAppService) {}

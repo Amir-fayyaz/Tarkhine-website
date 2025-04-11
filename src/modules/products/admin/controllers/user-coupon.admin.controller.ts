@@ -17,6 +17,7 @@ import { CreateUserCouponDto } from '../dto/user-coupon/create-userCoupon.dto';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -29,6 +30,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('admin-userCoupon')
 @ApiBearerAuth()
 @UseGuards(AdminGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class UserCouponAdminController {
   constructor(private readonly CouponService: UserCouponAdminService) {}

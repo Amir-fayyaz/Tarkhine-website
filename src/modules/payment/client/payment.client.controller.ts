@@ -10,6 +10,7 @@ import {
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiQuery,
   ApiTags,
@@ -26,6 +27,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('client-payment')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class PaymnetAppController {
   constructor(private readonly PaymentService: PaymentAppService) {}

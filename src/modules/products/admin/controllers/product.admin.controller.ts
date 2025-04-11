@@ -19,6 +19,7 @@ import { CreateProductDto } from '../dto/products/create-product.dto';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -32,6 +33,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('admin-products')
 @ApiBearerAuth()
 @UseGuards(AdminGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class ProductAdminController {
   constructor(private readonly ProductService: ProductAdminService) {}

@@ -18,6 +18,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -29,6 +30,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('client-address')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class AddressAppController {
   constructor(private readonly AddressService: AddressAppService) {}

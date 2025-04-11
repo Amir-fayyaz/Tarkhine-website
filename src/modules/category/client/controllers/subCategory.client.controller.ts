@@ -12,6 +12,7 @@ import {
 import { SubCategoryAppService } from '../services/subCategory.client.service';
 import {
   ApiBearerAuth,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -24,6 +25,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('client-subCategory')
 @ApiBearerAuth()
 // @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class SubCategoryAppController {
   constructor(private readonly SubCategoryService: SubCategoryAppService) {}

@@ -11,6 +11,7 @@ import {
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -27,6 +28,7 @@ import { AddUserImageDto } from './dto/addUserImage.dto';
 @ApiTags('client-user')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class UserAppController {
   constructor(private readonly UserService: UserAppService) {}

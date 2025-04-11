@@ -7,22 +7,21 @@ import {
   Param,
   ParseIntPipe,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { UserGuard } from 'src/modules/auth/guards/User.guard';
+
 import { ProductAppService } from '../services/product.client.service';
 import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('api/v1/client/products')
 @ApiTags('client-product')
-// @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class ProductAppController {
   constructor(private readonly ProductService: ProductAppService) {}

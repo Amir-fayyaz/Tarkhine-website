@@ -7,7 +7,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserCouponAppService } from '../services/user-coupon.client.service';
 import { UserGuard } from 'src/modules/auth/guards/User.guard';
 import { User } from 'src/common/decorators/getUser.decorator';
@@ -19,6 +19,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @Controller('api/v1/client/userCoupon')
 @ApiTags('client-userCoupon')
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class UserCouponAppController {
   constructor(private readonly UserCouponService: UserCouponAppService) {}

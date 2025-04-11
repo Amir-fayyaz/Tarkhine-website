@@ -14,6 +14,7 @@ import { StarAppService } from '../services/star.client.service';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -28,6 +29,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('client-star')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class StarAppController {
   constructor(private readonly starService: StarAppService) {}

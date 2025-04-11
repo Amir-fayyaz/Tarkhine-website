@@ -14,6 +14,7 @@ import {
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -30,6 +31,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('client-basket')
 @ApiBearerAuth()
 @UseGuards(UserGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class BasketAppController {
   constructor(private readonly BasketService: BasketAppService) {}

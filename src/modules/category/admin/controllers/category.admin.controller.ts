@@ -17,6 +17,7 @@ import { CategoryAdminService } from '../services/category.admin.service';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -32,6 +33,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('admin-category')
 @ApiBearerAuth()
 @UseGuards(AdminGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class CategoryAdminController {
   constructor(private readonly CategoryService: CategoryAdminService) {}

@@ -17,6 +17,7 @@ import { CreateGlobalCouponDto } from '../dto/global-coupon/create-globalCoupon.
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -28,6 +29,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 @ApiTags('admin-GlobalCoupon')
 @ApiBearerAuth()
 @UseGuards(AdminGuard)
+@ApiHeader({ name: 'authorization' })
 @SkipThrottle()
 export class GlobalCouponAdminController {
   constructor(private readonly CouponService: GlobalCouponAdminService) {}
