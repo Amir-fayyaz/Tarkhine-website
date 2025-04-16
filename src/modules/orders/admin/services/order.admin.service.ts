@@ -9,4 +9,8 @@ export class OrderAdminService {
     @InjectRepository(OrderEntity)
     private readonly Order_Repository: Repository<OrderEntity>,
   ) {}
+
+  public async getTotalOrders() {
+    return { count: await this.Order_Repository.count() };
+  }
 }
