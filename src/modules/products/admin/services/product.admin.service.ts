@@ -154,6 +154,22 @@ export class ProductAdminService {
     return { success: true };
   }
 
+  public async getAllProducts(page: number) {
+    const pagination = Pagination({ page, take: 20 });
+
+    const products = await this.Product_Repository.find({
+      take: pagination.take,
+      skip: pagination.skip,
+      relations: {
+        subCategory: true,
+        category: true,
+        coupon: true,
+      },
+    });
+
+    return { products, count: products.length };
+  }
+
   //For use in Star.service.ts
   public async IncreaseTotalStar(
     product_id: number,
