@@ -108,4 +108,19 @@ export class ProductAdminController {
   ) {
     return await this.ProductService.addProductImage(data.path, productId);
   }
+
+  //GET
+  @Get()
+  @ApiOperation({ summary: 'For get all products' })
+  @ApiQuery({
+    name: 'page',
+    description: 'For pagination',
+    default: 1,
+    required: false,
+  })
+  async getAllProducts(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ) {
+    return await this.ProductService.getAllProducts(page);
+  }
 }
