@@ -53,9 +53,13 @@ export class S3Service {
       forcePathStyle: true,
     });
   }
-
-  // آپلود فایل
-  async uploadFile(file: Express.Multer.File, folder: UploadFileType) {
+  //private methods
+  private extractKeyFromUrl(url: string): string {
+    const urlObj = new URL(url);
+    return urlObj.pathname.substring(1);
+  }
+  //public methods
+  public async uploadFile(file: Express.Multer.File, folder: UploadFileType) {
     const key = folder ? `${folder}/${file.originalname}` : file.originalname;
 
     const uploadParams = {
@@ -80,11 +84,11 @@ export class S3Service {
     }
   }
 
-  // حذف فایل
-  async deleteFile(key: string) {
+  //public methods
+  public async deleteFile(key: string) {
     const deleteParams = {
       Bucket: this.bucketName,
-      Key: key,
+      Key: this.extractKeyFromUrl(key),
     };
 
     try {
