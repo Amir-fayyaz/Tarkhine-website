@@ -28,6 +28,7 @@ import {
 import { UpdateProductDto } from '../dto/products/update-product.dto';
 import { AddProductImageDto } from '../dto/products/add-productImage.dto';
 import { SkipThrottle } from '@nestjs/throttler';
+import { DeleteProductImageDto } from '../dto/products/delete-productImage.dto';
 
 @Controller('api/v1/admin/products')
 @ApiTags('admin-products')
@@ -122,5 +123,13 @@ export class ProductAdminController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
     return await this.ProductService.getAllProducts(page);
+  }
+
+  //DELETE
+  @Delete('delete/image')
+  @ApiOperation({ summary: 'For delete product image' })
+  @ApiBody({ type: DeleteProductImageDto })
+  async handler(@Body() data: DeleteProductImageDto) {
+    return await this.ProductService.deleteProductImage(data.url);
   }
 }
