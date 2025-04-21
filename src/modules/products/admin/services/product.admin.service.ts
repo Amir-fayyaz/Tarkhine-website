@@ -154,6 +154,23 @@ export class ProductAdminService {
     return { success: true };
   }
 
+  public async deleteProductImage(url: string) {
+    const product = await this.Product_Repository.findOne({
+      where: { image_url: url },
+    });
+
+    if (!product)
+      throw new NotFoundException('There is no product with this url');
+
+    product.image_url = null;
+
+    console.log(1);
+    await this.Product_Repository.save(product);
+    console.log(2);
+
+    return await this.ImageService.deleteFile(url);
+  }
+
   public async getAllProducts(page: number) {
     const pagination = Pagination({ page, take: 20 });
 
